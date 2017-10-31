@@ -1,5 +1,5 @@
-# A Captain's (Developer) Log
+#Exploring code-universe: A Captain's Log
 
-The starship has already launched to explore new territories in software development. But the Captain's Log has not started yet.
-It's under construction.
+_The starship has launched to explore the outer reaches of development. This is the captain's log on explorations and findings..._
+
 
