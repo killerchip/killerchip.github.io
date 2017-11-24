@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Getting started with State Machines | Exploring Code Universe</title>
+  <title>Use Cases of RxJS with Angular | Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Started exploring Finite State Machines, and how they can help with a better UX architectures. Especially interested how they can help with “chatty” UIs. Sharing some readings that can get you started">
-<meta name="keywords" content="state machines,UML">
+  <meta name="description" content="Here are two example use cases for RxJS streams with Angular. You can save the link as a reference. This is intended to be the start of as series of use-case examples of RxJS with Angular. I will be g">
+<meta name="keywords" content="reactivex,rxjs,angular">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Getting started with State Machines">
-<meta property="og:url" content="http://killerchip.net/2017/11/04/2017-11-04-state-machines/index.html">
+<meta property="og:title" content="Use Cases of RxJS with Angular">
+<meta property="og:url" content="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="Started exploring Finite State Machines, and how they can help with a better UX architectures. Especially interested how they can help with “chatty” UIs. Sharing some readings that can get you started">
+<meta property="og:description" content="Here are two example use cases for RxJS streams with Angular. You can save the link as a reference. This is intended to be the start of as series of use-case examples of RxJS with Angular. I will be g">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-04T10:24:22.000Z">
+<meta property="og:updated_time" content="2017-11-24T05:38:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Getting started with State Machines">
-<meta name="twitter:description" content="Started exploring Finite State Machines, and how they can help with a better UX architectures. Especially interested how they can help with “chatty” UIs. Sharing some readings that can get you started">
+<meta name="twitter:title" content="Use Cases of RxJS with Angular">
+<meta name="twitter:description" content="Here are two example use cases for RxJS streams with Angular. You can save the link as a reference. This is intended to be the start of as series of use-case examples of RxJS with Angular. I will be g">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -69,14 +69,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-2017-11-04-state-machines" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2017-11-24-rxjs-angular-examples" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/04/2017-11-04-state-machines/" class="article-date">
-  <time datetime="2017-11-04T10:10:10.000Z" itemprop="datePublished">2017-11-04</time>
+    <a href="/2017/11/24/2017-11-24-rxjs-angular-examples/" class="article-date">
+  <time datetime="2017-11-24T05:28:45.000Z" itemprop="datePublished">2017-11-24</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/State-Machines/">State Machines</a>
+    <a class="article-category-link" href="/categories/ReactiveX/">ReactiveX</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/">RxJS</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/Angular/">Angular</a>
   </div>
 
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Getting started with State Machines
+      Use Cases of RxJS with Angular
     </h1>
   
 
@@ -95,22 +95,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><em>Started exploring Finite State Machines, and how they can help with a better UX architectures. Especially interested how they can help with “chatty” UIs.</em></p>
-<p>Sharing some readings that can get you started:</p>
+        <p><em>Here are two example use cases for RxJS streams with Angular. You can save the link as a reference.</em></p>
+<p>This is intended to be the start of as series of use-case examples of RxJS with Angular. I will be gathering these and future use-cases in my <a href="https://gist.github.com/killerchip/bcb7e6d81f9c6ca0f5d7156add2b6da4" target="_blank" rel="external">GitHub Gist: rxjs-angular-examples.md</a>.</p>
+<p>In this post:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank" rel="external">Wikipedia: Finite State Machine</a></li>
-<li><a href="https://www.lucidchart.com/pages/uml/state-machine-diagram" target="_blank" rel="external">Lucid Chart: State Machine Diagram Tutorial</a></li>
-<li><a href="https://classes.soe.ucsc.edu/cmpe013/Spring11/LectureNotes/A_Crash_Course_in_UML_State_Machines.pdf" target="_blank" rel="external">Univercity of California: A Crash Course in UML State Machines (pdf)</a></li>
+<li><p><strong>Monitoring until:</strong> In this scenario we want to repeatedly monitor an API endpoint, until it retuns a specific value (or condition).</p>
+</li>
+<li><p><strong>Gather up info from APIs:</strong> In this example we gather up information from two different API endpoints, combine them and present them as one object to the subscriber.</p>
+</li>
 </ul>
+<p>Here follow code snippets and examples of RxJS and HttpClient in Angular</p>
+<h2 id="Monitoring-until"><a href="#Monitoring-until" class="headerlink" title="Monitoring until"></a>Monitoring until</h2><p>In this scenario we want to repeatedly monitor an API endpoint, until it retuns a specific value (or condition).</p>
+<p>Explanation: </p>
+<ul>
+<li>We use <code>interval</code> operator to create an observable that emits a dummy event (a counter) on specific intervals.</li>
+<li>We use these dummy events to trigger calls to remove API, and merge the result back to the stream, with <code>mergeMap</code>.</li>
+<li>Finally with <code>takeWhile</code> we check if the condition we want is met. If the conidition is met then <ul>
+<li>the particular event is not emitted</li>
+<li>the transmition stops</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</div><div class="line">import &apos;rxjs/add/Observable/interval&apos;;</div><div class="line">import &apos;rxjs/add/operators/mergeMap&apos;;</div><div class="line">import &apos;rxjs/add/operators/takeWhile&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">const monitor = Observable.interval(2000)    // parameter is milliseconds</div><div class="line">  .mergeMap (() =&gt; this.httpClient.get(remoteURL) ) // call remote API that returns Χ</div><div class="line">  .takeWhile ((X) =&gt; X === desiredValue /* condition that defines if the event will be emitted.</div><div class="line">  </div><div class="line">monitor.subscribe((X) =&gt; /* handle the events here */ );</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
+<p><em>Note: The above code works for Angular with RxJS 5.4 and older. With RxJS 5.5 <code>.pipe</code> can used to apply operators.</em></p>
+<h2 id="Gather-up-info-from-APIs"><a href="#Gather-up-info-from-APIs" class="headerlink" title="Gather up info from APIs"></a>Gather up info from APIs</h2><p>In this example we gather up information from two different API endpoints, combine them and present them as one object to the subscriber.</p>
+<p>Explanation:</p>
+<ul>
+<li>We create an observable that queries the 1st endpoint.</li>
+<li>With <code>mergeMap</code> operator we trigger query for the 2nd endpoint. The 2nd query depends on the results of the 1st query.</li>
+<li>Finally we <code>combineLatest</code> the two observables into one that emits the combination of the two.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">const postArray = this.getPosts();</div><div class="line"></div><div class="line">const comments = postArray.pipe(</div><div class="line">  mergeMap(posts =&gt; this.http.get(`https://jsonplaceholder.typicode.com/posts/$&#123;posts[1].id&#125;/comments`))</div><div class="line">);</div><div class="line"></div><div class="line">const latest = combineLatest (postArray, comments, (posts, cmnt) =&gt; &#123;</div><div class="line">  return &#123;a: posts, b: cmnt&#125;;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">latest.subscribe(data =&gt; &#123;</div><div class="line">  this.posts = data.a;</div><div class="line">  this.comment = data.b;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><em>Note: We use RxJS 5.5 which now use the ‘lettable’ operators.</em></p>
 <p><em>Captain out…</em></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/04/2017-11-04-state-machines/" data-id="cjadh5wbg0005idvhl5t1x26c" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/" data-id="cjadh5wc1000didvh6u2nfllg" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/state-machines/">state machines</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
 
     </footer>
   </div>
@@ -118,19 +143,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/11/11/2017-11-11-dotin-ai-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Dotin HR AI
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/11/02/2017-11-02-cordova-android-volume/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Android Volume Cordova plugin</div>
+      <div class="article-nav-title">IoT Workshop / Voxxed Days Thessaloniki 2017</div>
     </a>
   
 </nav>
