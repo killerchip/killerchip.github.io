@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: Internationalization | Exploring Code Universe</title>
+  <title>Queries one after the other / RxJS examples | Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Exploring code universe. This is my experencie and notes of this exploration.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Exploring Code Universe">
-<meta property="og:url" content="http://killerchip.net/categories/Internationalization/index.html">
+  <meta name="description" content="Another example use case of Angular-RxJS You can find this example and other examples in my Gist Repository. Launch a series of requests one after the otherIn this example we launch a series of reques">
+<meta name="keywords" content="reactivex,rxjs,angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Queries one after the other &#x2F; RxJS examples">
+<meta property="og:url" content="http://killerchip.net/2017/11/28/2017-11-28-serial-queries/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta property="og:description" content="Another example use case of Angular-RxJS You can find this example and other examples in my Gist Repository. Launch a series of requests one after the otherIn this example we launch a series of reques">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-11-28T21:21:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Exploring Code Universe">
-<meta name="twitter:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta name="twitter:title" content="Queries one after the other &#x2F; RxJS examples">
+<meta name="twitter:description" content="Another example use case of Angular-RxJS You can find this example and other examples in my Gist Repository. Launch a series of requests one after the otherIn this example we launch a series of reques">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -67,39 +69,66 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/02/2017-11-02-ngx-translate-extract-csv/" class="archive-article-date">
-  <time datetime="2017-11-02T20:37:11.000Z" itemprop="datePublished">Nov 2</time>
+        <section id="main"><article id="post-2017-11-28-serial-queries" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/28/2017-11-28-serial-queries/" class="article-date">
+  <time datetime="2017-11-28T21:15:58.000Z" itemprop="datePublished">2017-11-28</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ReactiveX/">ReactiveX</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/">RxJS</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/Angular/">Angular</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/02/2017-11-02-ngx-translate-extract-csv/">JSON-CSV script for ngx-translate-extract</a>
+    <h1 class="article-title" itemprop="name">
+      Queries one after the other / RxJS examples
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Another example use case of Angular-RxJS</em></p>
+<p>You can find this example and other examples in my <a href="https://gist.github.com/killerchip/bcb7e6d81f9c6ca0f5d7156add2b6da4" target="_blank" rel="external">Gist Repository</a>.</p>
+<h2 id="Launch-a-series-of-requests-one-after-the-other"><a href="#Launch-a-series-of-requests-one-after-the-other" class="headerlink" title="Launch a series of requests one after the other"></a>Launch a series of requests one after the other</h2><p>In this example we launch a series of requests from information derived from an array. The requests are launched one after the other. This means a “next” request is launched only when the “previous” has been resolved.</p>
+<p>The trick here is done by <code>concatMap</code> operator which does exactly what we want. So we create an <code>Observable</code> based on an array of initial values. Then <code>concatMap</code> will render them into a single stream the way we described above.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</div><div class="line">import &apos;rxjs/add/observable/from&apos;;</div><div class="line">import &#123; concatMap &#125; from &apos;rxjs/operators&apos;;</div><div class="line">import &#123; HttpClient &#125; from &apos;@angular/common/http&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">const myEvents: number[] = [1, 2, 3, 4, 5];</div><div class="line">const myobs = Observable.from(myEvents).pipe(</div><div class="line">  concatMap (evt =&gt; &#123;</div><div class="line">    return this.http.get(`https://jsonplaceholder.typicode.com/postss/$&#123;evt&#125;`);</div><div class="line">  &#125;),</div><div class="line">)</div><div class="line">.subscribe( /* handle events here */);</div></pre></td></tr></table></figure>
+<p><strong>Bypass errors</strong></p>
+<p>The above approach, will stop the stream if one of the requests returns an error. What if we wanted to continue with the next requests even if one of them returned an error?</p>
+<p>The <code>materialize</code> operator wraps all events (Events, Errors, Complete) to a new object called <code>Notification</code>. Thus errors and “complete” events are treated as normal events and do not stop the stream. Of course you have to handle the errors-complete events.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import &#123; materialize &#125; from &apos;rxjs/operators&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"> return this.http.get(`https://jsonplaceholder.typicode.com/postss/$&#123;evt&#125;`).pipe(</div><div class="line">    materialize()</div><div class="line"> )</div><div class="line">...</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2017/11/28/2017-11-28-serial-queries/" data-id="cjak4o4dv000pq1vh5klhrocx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Voxxed Days Thessaloniki 2017 / Activity Overview and Take-aways</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
