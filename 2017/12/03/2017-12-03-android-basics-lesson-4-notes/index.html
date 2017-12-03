@@ -3,18 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Catégorie: Web | Exploring Code Universe</title>
+  <title>Practice Building Android Layouts / Udacity course Lesson 4 notes | Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Exploring code universe. This is my experencie and notes of this exploration.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Exploring Code Universe">
-<meta property="og:url" content="http://killerchip.net/categories/Web/index.html">
+  <meta name="description" content="Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course The course actually gave instructions and a challenge of building your own card as android app using Android Studio and de">
+<meta name="keywords" content="android,udacity,android basics,layouts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Practice Building Android Layouts &#x2F; Udacity course Lesson 4 notes">
+<meta property="og:url" content="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta property="og:description" content="Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course The course actually gave instructions and a challenge of building your own card as android app using Android Studio and de">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/portrait.png">
+<meta property="og:image" content="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/landscape.png">
+<meta property="og:updated_time" content="2017-12-03T17:46:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Exploring Code Universe">
-<meta name="twitter:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta name="twitter:title" content="Practice Building Android Layouts &#x2F; Udacity course Lesson 4 notes">
+<meta name="twitter:description" content="Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course The course actually gave instructions and a challenge of building your own card as android app using Android Studio and de">
+<meta name="twitter:image" content="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/portrait.png">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -67,39 +72,84 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/02/2017-11-02-hexo-github-pages/" class="archive-article-date">
-  <time datetime="2017-11-02T06:08:33.000Z" itemprop="datePublished">Nov 2</time>
+        <section id="main"><article id="post-2017-12-03-android-basics-lesson-4-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" class="article-date">
+  <time datetime="2017-12-03T17:35:13.000Z" itemprop="datePublished">2017-12-03</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/Development/">Development</a>►<a class="article-category-link" href="/categories/Android/Development/Layout/">Layout</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/02/2017-11-02-hexo-github-pages/">Publish a Hexo Blog to Github Pages</a>
+    <h1 class="article-title" itemprop="name">
+      Practice Building Android Layouts / Udacity course Lesson 4 notes
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course</em></p>
+<p>The course actually gave instructions and a challenge of building your own card as android app using Android Studio and deploying in a real Android device.</p>
+<p>Here are my notes which can be found also at My GistHub:</p>
+<h2 id="Preparing-to-work-with-Android"><a href="#Preparing-to-work-with-Android" class="headerlink" title="Preparing to work with Android"></a>Preparing to work with Android</h2><ul>
+<li>Download and install latest <a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">Android Studio.</a></li>
+<li>Configure your phone to become developer (<a href="https://www.youtube.com/watch?v=1dpuTC4YJyU" target="_blank" rel="external">YouTube instruction video</a>)</li>
+<li>Connect your phone to the computer</li>
+<li>Install Driver (Windows environments only). (<a href="https://developer.android.com/studio/run/oem-usb.html" target="_blank" rel="external">Details Here</a>)</li>
+</ul>
+<h2 id="From-Design-to-Code"><a href="#From-Design-to-Code" class="headerlink" title="From Design to Code"></a>From Design to Code</h2><ol>
+<li>Identify the Views to use (TextView? ImageView?)</li>
+<li>Position the Views (ViewGroups and positioning)</li>
+<li>Style the views (Fonts, colors, sizes, etc.)</li>
+</ol>
+<h2 id="Referencing-an-image"><a href="#Referencing-an-image" class="headerlink" title="Referencing an image"></a>Referencing an image</h2><p>Images are saved in <code>app/drawable</code> folder. E.g <code>androidparty.jpg</code>.</p>
+<p>Then they can be referenced as <code>source</code> from the ImageView.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">...  </div><div class="line">  android:src=&quot;@drawable/androidparty&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><em>Note: No need to add the extension of the image file.</em></p>
+<h2 id="A-Sample-ImageView"><a href="#A-Sample-ImageView" class="headerlink" title="A Sample ImageView"></a>A Sample ImageView</h2><p>Use it as a quick reference for ImageView properties:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:scaleType=&quot;centerCrop&quot;</div><div class="line">        android:src=&quot;@drawable/myImage&quot;</div><div class="line">        /&gt;</div></pre></td></tr></table></figure>
+<h2 id="A-Sample-TextView"><a href="#A-Sample-TextView" class="headerlink" title="A Sample TextView"></a>A Sample TextView</h2><p>Use it as a quick reference for TextView properties:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:layout_marginTop=&quot;16dp&quot;</div><div class="line">    android:layout_marginLeft=&quot;16dp&quot;</div><div class="line">    android:text=&quot;Hello World&quot;</div><div class="line">    android:fontFamily=&quot;sans-serif-light&quot;</div><div class="line">    android:textColor=&quot;@android:color/white&quot;</div><div class="line">    android:textSize=&quot;32sp&quot;</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
+<h2 id="Draw-Your-Own-Card-challenge"><a href="#Draw-Your-Own-Card-challenge" class="headerlink" title="Draw Your Own Card challenge"></a>Draw Your Own Card challenge</h2><p>Here’s the reference to my own card that I created as part of the practical challenge of this lesson:<br><a href="https://discussions.udacity.com/t/make-your-own-card/19643/6766" target="_blank" rel="external">https://discussions.udacity.com/t/make-your-own-card/19643/6766</a></p>
+<p>I actually created a Memory card for my son Orestis to remember the trip we took with “Mountzouris” Locomotive train last summer (2017).</p>
+<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/portrait.png" title="Card in Portrait mode">
+<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/landscape.png" title="Card in Landscape mode">
+<p><em>Captain Out…</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" data-id="cjar251tm0045oyvhtfso16xr" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layouts/">layouts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity/">udacity</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/28/2017-11-28-serial-queries/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Queries one after the other / RxJS examples</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
