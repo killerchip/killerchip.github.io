@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Getting started with Observables in Angular | Exploring Code Universe</title>
+  <title>Angular Dependency Injection Cheatsheet | Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="So you want to get started with Observables? This is small guide on which resources to access first. Get started with the following article to understand ReactiveX in general The introduction to React">
-<meta name="keywords" content="reactivex,rxjs,angular,observables">
+  <meta name="description" content="Here’s is a cheatsheet on using Angular’s DI framework. You can find it also in my Gist.  How to Inject DependenciesWhen we want to use a dependent class/value, instead of creating them ourselves,Angu">
+<meta name="keywords" content="angular,di,dependency injection">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Getting started with Observables in Angular">
-<meta property="og:url" content="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/index.html">
+<meta property="og:title" content="Angular Dependency Injection Cheatsheet">
+<meta property="og:url" content="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="So you want to get started with Observables? This is small guide on which resources to access first. Get started with the following article to understand ReactiveX in general The introduction to React">
+<meta property="og:description" content="Here’s is a cheatsheet on using Angular’s DI framework. You can find it also in my Gist.  How to Inject DependenciesWhen we want to use a dependent class/value, instead of creating them ourselves,Angu">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-23T20:15:29.991Z">
+<meta property="og:updated_time" content="2017-12-31T09:24:39.440Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Getting started with Observables in Angular">
-<meta name="twitter:description" content="So you want to get started with Observables? This is small guide on which resources to access first. Get started with the following article to understand ReactiveX in general The introduction to React">
+<meta name="twitter:title" content="Angular Dependency Injection Cheatsheet">
+<meta name="twitter:description" content="Here’s is a cheatsheet on using Angular’s DI framework. You can find it also in my Gist.  How to Inject DependenciesWhen we want to use a dependent class/value, instead of creating them ourselves,Angu">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -69,14 +69,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-2017-11-16-get-start-observables" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2017-12-31-dependency-injection-cheatsheet" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/11/16/2017-11-16-get-start-observables/" class="article-date">
-  <time datetime="2017-11-16T21:29:07.000Z" itemprop="datePublished">2017-11-16</time>
+    <a href="/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" class="article-date">
+  <time datetime="2017-12-31T09:14:54.000Z" itemprop="datePublished">2017-12-31</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Angular/">Angular</a>►<a class="article-category-link" href="/categories/Angular/ReactiveX/">ReactiveX</a>
+    <a class="article-category-link" href="/categories/Angular/">Angular</a>►<a class="article-category-link" href="/categories/Angular/Dependency-Injection/">Dependency Injection</a>
   </div>
 
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Getting started with Observables in Angular
+      Angular Dependency Injection Cheatsheet
     </h1>
   
 
@@ -95,26 +95,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><em>So you want to get started with Observables? This is small guide on which resources to access first.</em></p>
-<p>Get started with the following article to understand ReactiveX in general</p>
-<p><a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank" rel="external">The introduction to Reactive Programming you’ve been missing</a></p>
-<p>Continue with the following article to see how you can use them in Angular.</p>
-<p><a href="https://malcoded.com/posts/rxjs-for-angular-devs" target="_blank" rel="external">RxJS for Angular Developers</a></p>
-<p>The ReactiveX / RxJS website then can get you to more details:</p>
-<p><a href="http://reactivex.io/rxjs/manual/overview.html" target="_blank" rel="external">reactivex.io/rxjs</a></p>
-<p>And of course you are frequently need to refer to the available operators:</p>
-<p><a href="http://reactivex.io/documentation/operators.html" target="_blank" rel="external">ReactiveX Operators</a></p>
-<p>And the following project has full details with examples that can help you clear out things in your mind, while you are working.</p>
-<p><a href="https://github.com/btroncone/learn-rxjs" target="_blank" rel="external">Learn RxJS</a></p>
-<p><em>Captain Out…</em></p>
+        <p><em>Here’s is a cheatsheet on using Angular’s DI framework.</em></p>
+<p>You can find it also in <a href="https://gist.github.com/killerchip/45b816cf9fe30428ab4b53090765dfbe#file-dependency-injection-md" target="_blank" rel="external">my Gist</a>.</p>
+<hr>
+<h1 id="How-to-Inject-Dependencies"><a href="#How-to-Inject-Dependencies" class="headerlink" title="How to Inject Dependencies"></a>How to Inject Dependencies</h1><p>When we want to use a dependent class/value, instead of creating them ourselves,<br>Angular’s DI framework will do it for us. In order to do this, we must define for the class/value a Token.<br>Once Angular sees that we want to inject the specific token, it will create the class/value and provide it to our class.</p>
+<h2 id="Injecting-a-Class"><a href="#Injecting-a-Class" class="headerlink" title="Injecting a Class"></a>Injecting a Class</h2><p><strong>Create a class with Injectable decorator</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</div><div class="line"></div><div class="line">@Injectable()</div><div class="line">export class MyService &#123;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Declare the class in a NgModule</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">NgModule (&#123;</div><div class="line">  ...</div><div class="line">  providers: [MyService],</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><em>Note:</em> The above is a shortcut for<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">providers: [&#123; provide: MyService, useClass: MyService &#125;]  // provide: &lt;token&gt;, useClass: &lt;the class to instanciate&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>Request injection</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">export class MyClientClass &#123;</div><div class="line"></div><div class="line">  constructor (</div><div class="line">    private myService: MyService    // Angular identifies the MyService token and provides an instance of the class.</div><div class="line">  )&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Injecting-a-Value"><a href="#Injecting-a-Value" class="headerlink" title="Injecting a Value"></a>Injecting a Value</h2><p><strong>Declare the value in a NgModule</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">NgModule (&#123;</div><div class="line">  ...</div><div class="line">  providers: [&#123;provide: &apos;API&apos;, useValue: &apos;https://api.example.com/v1.0&apos;&#125;],</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>Inject the value in a class</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export myAPIClient &#123;</div><div class="line">  constructor (</div><div class="line">    @Inject(&apos;API&apos;) apiHome: string</div><div class="line">  )&#123;&#125;</div><div class="line">  </div><div class="line">  //use the injected value</div><div class="line">  public getData()&#123;</div><div class="line">    console.log(`Will fetch data from $&#123;this.apiHome&#125;`);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="useFactory-Inject-anything"><a href="#useFactory-Inject-anything" class="headerlink" title="useFactory: Inject anything"></a>useFactory: Inject anything</h2><p>You can inject a service that requires parameters in its constructor, or anything that can be returned from a function.</p>
+<h3 id="Injecting-a-parametrized-service"><a href="#Injecting-a-parametrized-service" class="headerlink" title="Injecting a parametrized service"></a>Injecting a parametrized service</h3><p><strong>Create your service as normal</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import &#123; Injectable &#125; from &apos;@angular/core&apos;;</div><div class="line"></div><div class="line">@Injectable()</div><div class="line">export class RandomProvider &#123;</div><div class="line"></div><div class="line">  public modulo = 1;</div><div class="line"></div><div class="line">  constructor(modulo: number) &#123;   //Instanciating the class requires parameter</div><div class="line">    this.modulo = modulo</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  getRandomNumber(): number &#123;</div><div class="line">    return this.modulo*Math.random();</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>Define Injection with useFactory</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">NgModule (&#123;</div><div class="line">  ...</div><div class="line">  providers: [</div><div class="line">  &#123; </div><div class="line">    provide: RandomProvider, </div><div class="line">    useFactory()&#123;</div><div class="line">      return new RandomProvider(4);</div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>Use the injection as normal</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">export class Randomizer &#123;</div><div class="line"></div><div class="line">  constructor( private randomService: RandomService ) &#123;&#125;</div><div class="line"></div><div class="line">  public roll(): number &#123;</div><div class="line">    return this.randomService.getRandomNumber();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Inject-a-constructed-value"><a href="#Inject-a-constructed-value" class="headerlink" title="Inject a constructed value"></a>Inject a constructed value</h3><p>Let’s say that we want to inject an array of value that is constructed on start. We use <code>useFactory</code> to construct the value.</p>
+<p><strong>Construct the injectable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">NgModule (&#123;</div><div class="line">  ...</div><div class="line">  providers: [</div><div class="line">  &#123; </div><div class="line">    provide: &apos;RANDOM_ARRAY&apos;, </div><div class="line">    useFactory()&#123;</div><div class="line">      return [</div><div class="line">        Math.random(),</div><div class="line">        Math.random(),</div><div class="line">        Math.random()</div><div class="line">      ];</div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>Inject the value as normal</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">export class ConsumeInjectedValue &#123;</div><div class="line"></div><div class="line">  constructor( @Inject(&apos;RANDOM_ARRAY&apos;) private threeRandomValues: number[] ) &#123;&#125;</div><div class="line"></div><div class="line">  public consoleLog() &#123;</div><div class="line">    console.log(this.threeRandomValues);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="useFactory-Dependencies"><a href="#useFactory-Dependencies" class="headerlink" title="useFactory Dependencies"></a>useFactory Dependencies</h3><p>If the factory function itself has dependencies, they can be declared in the <code>deps</code> property.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import &#123; HttpClientModule, HttpClient &#125; from &apos;@angular/core/http&apos;</div><div class="line"></div><div class="line">NgModule (&#123;</div><div class="line">  ...</div><div class="line">    providers: [&#123;</div><div class="line">      provide: &apos;TRUE_RANDOM_SOURCE&apos;,</div><div class="line">      deps: [HttpClient], //here we declare dependencies of our factory</div><div class="line">      useFactory(httpClient: HttpClient) &#123;   // our factory needs an injectable (HttpClient)</div><div class="line">        return this.httpClient.get(&apos;http://api.example.com/randomval&apos;); //fake URL - does not really work</div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">  ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/" data-id="cjbukja49000d3fqqd88aorlj" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" data-id="cjbukja4t00103fqqok4u2h8q" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/observables/">observables</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/di/">di</a></li></ul>
 
     </footer>
   </div>
@@ -122,19 +129,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          IoT Workshop / Voxxed Days Thessaloniki 2017
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/11/11/2017-11-11-udacity-android-basics/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/12/28/2017-12-28-gist-update/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Awarded Udacity Scholarship - Android Basics</div>
+      <div class="article-nav-title">Angular Forms, Angular Directives</div>
     </a>
   
 </nav>
