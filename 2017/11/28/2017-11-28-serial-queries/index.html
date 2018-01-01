@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Exploring Code Universe">
 <meta property="og:description" content="Another example use case of Angular-RxJS You can find this example and other examples in my Gist Repository. Launch a series of requests one after the otherIn this example we launch a series of reques">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-12-23T20:15:29.991Z">
+<meta property="og:updated_time" content="2018-01-01T07:20:51.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Queries one after the other &#x2F; RxJS examples">
 <meta name="twitter:description" content="Another example use case of Angular-RxJS You can find this example and other examples in my Gist Repository. Launch a series of requests one after the otherIn this example we launch a series of reques">
@@ -96,7 +96,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><em>Another example use case of Angular-RxJS</em></p>
-<p>You can find this example and other examples in my <a href="https://gist.github.com/killerchip/bcb7e6d81f9c6ca0f5d7156add2b6da4" target="_blank" rel="external">Gist Repository</a>.</p>
+<p>You can find this example and other examples in my <a href="https://gist.github.com/killerchip/ef7cd12fd82c179da0a51be24ee9a2dc" target="_blank" rel="external">Gist Repository</a>.</p>
 <h2 id="Launch-a-series-of-requests-one-after-the-other"><a href="#Launch-a-series-of-requests-one-after-the-other" class="headerlink" title="Launch a series of requests one after the other"></a>Launch a series of requests one after the other</h2><p>In this example we launch a series of requests from information derived from an array. The requests are launched one after the other. This means a “next” request is launched only when the “previous” has been resolved.</p>
 <p>The trick here is done by <code>concatMap</code> operator which does exactly what we want. So we create an <code>Observable</code> based on an array of initial values. Then <code>concatMap</code> will render them into a single stream the way we described above.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</div><div class="line">import &apos;rxjs/add/observable/from&apos;;</div><div class="line">import &#123; concatMap &#125; from &apos;rxjs/operators&apos;;</div><div class="line">import &#123; HttpClient &#125; from &apos;@angular/common/http&apos;;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">const myEvents: number[] = [1, 2, 3, 4, 5];</div><div class="line">const myobs = Observable.from(myEvents).pipe(</div><div class="line">  concatMap (evt =&gt; &#123;</div><div class="line">    return this.http.get(`https://jsonplaceholder.typicode.com/postss/$&#123;evt&#125;`);</div><div class="line">  &#125;),</div><div class="line">)</div><div class="line">.subscribe( /* handle events here */);</div></pre></td></tr></table></figure>
@@ -220,7 +220,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 killerchip<br>
+      &copy; 2018 killerchip<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
