@@ -69,6 +69,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2018-04-13-immutable-class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/13/2018-04-13-immutable-class/" class="article-date">
+  <time datetime="2018-04-13T14:41:23.000Z" itemprop="datePublished">2018-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Immutable-Class"><a href="#Immutable-Class" class="headerlink" title="Immutable Class"></a>Immutable Class</h1><p><em>Please refer to my <a href="https://github.com/killerchip/angular-cheatsheet/tree/immutable-class" target="_blank" rel="external">Github project</a> for details.</em></p>
+<p>This is a class structure for creating immutable objects in typescript / angular. An immutable object is one that you do not update its contents. Instead you create a new object with altered content and then replace the original with a new one. The initial intention is to be used with ngx-model.</p>
+<p>In this example we are creating a class that models a person .</p>
+<h2 id="Define-an-interface"><a href="#Define-an-interface" class="headerlink" title="Define an interface"></a>Define an interface</h2><p>First define an interface to be applied to the <code>constructor</code> of the class:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export interface IPerson &#123;</div><div class="line">  name: string;</div><div class="line">  surname: string;</div><div class="line">  age?: number;   //optional property</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-the-class"><a href="#Define-the-class" class="headerlink" title="Define the class"></a>Define the class</h2><p>Define the class with its constructor and the properties:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  //Define the class Person</div><div class="line">  name: string;</div><div class="line">  surname: string;</div><div class="line">  age?: number;</div><div class="line"></div><div class="line">  constructor(newPerson: IPerson) &#123;</div><div class="line">    this.name = newPerson.name;</div><div class="line">    this.surname = newPerson.surname;</div><div class="line">    this.age = newPerson.age || 0;    //Default value in optional property</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-a-json-method"><a href="#Define-a-json-method" class="headerlink" title="Define a json method"></a>Define a json method</h2><p>A <code>.json()</code> method will allow you extracting the original data that the class was created with:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">    // Allows extraction of the original properties of the class</div><div class="line">  json(): IPerson &#123;</div><div class="line"></div><div class="line">    // Return the properties</div><div class="line">    return &#123;</div><div class="line">      name: this.name,</div><div class="line">      surname: this.surname,</div><div class="line">      age: this.age</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-a-clone-method"><a href="#Define-a-clone-method" class="headerlink" title="Define a clone method"></a>Define a clone method</h2><p>A <code>.clone()</code> method will allow you easily obtaining a clone of the object when needed:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // Allows cloning of the object</div><div class="line">  clone(): Person &#123;</div><div class="line">    return new Person( this.json() );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-an-update-method"><a href="#Define-an-update-method" class="headerlink" title="Define an update method"></a>Define an update method</h2><p>Although the name <code>.update()</code> refers to a mutable object, in practice this method will allow you easily to get a copy of the original object with updated properties.</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // Returns a new clone of the object with updated specific properties</div><div class="line">  update(data: Partial&lt;IPerson&gt;): Person &#123;</div><div class="line">    let result: IPerson = this.json();</div><div class="line">    for (let key in data) &#123;</div><div class="line">      result[key] = data[key];</div><div class="line">    &#125;</div><div class="line">    return new Person(result);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-any-additional-methods"><a href="#Define-any-additional-methods" class="headerlink" title="Define any additional methods"></a>Define any additional methods</h2><p>You define any additional methods and/or derived data as methods.</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // A sample class method</div><div class="line">  getDescription(): string &#123;</div><div class="line">    return this.age &gt;= 18 ? &apos;adult&apos; : &apos;kid&apos;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>You are now having a class which can produce immutable objects. Its basic methods allows to easily manipulate the object and still keep it immutable.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2018/04/13/2018-04-13-immutable-class/" data-id="cjfy2n8o40011pyvhximm8www" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2018-03-25-lardev-meetup-ionic-presentation" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" class="article-date">
@@ -106,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" data-id="cjf6u4si40013lgqqb0rw69cd" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" data-id="cjfy2uxew0003k2vhj1ujobxi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
@@ -172,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/01/21/2018-01-21-home-made-redux-store/" data-id="cjf6u4si10010lgqqilltn6ai" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/01/21/2018-01-21-home-made-redux-store/" data-id="cjfy2uxej0001k2vhjs7gttms" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
@@ -224,7 +266,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/01/06/2018-01-06-angular-routing/" data-id="cjf6u4si0000zlgqqgmrclx0h" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/01/06/2018-01-06-angular-routing/" data-id="cjfy2uxdj0000k2vhjejd5s0z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/routing/">routing</a></li></ul>
@@ -285,7 +327,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" data-id="cjf6u4si50014lgqqkvk32kvk" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" data-id="cjfy2n8o2000zpyvhfonbiob3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/di/">di</a></li></ul>
@@ -477,7 +519,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/28/2017-12-28-gist-update/" data-id="cjf6u4si70018lgqq9zydeqer" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/28/2017-12-28-gist-update/" data-id="cjfy2n8of001bpyvhv4uo9yoq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/directives/">directives</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/forms/">forms</a></li></ul>
@@ -531,7 +573,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/23/2017-12-23-angular-bootstrap/" data-id="cjf6u4skv006llgqqdkieqkix" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/23/2017-12-23-angular-bootstrap/" data-id="cjfy2n8oc0017pyvh5w1xftp3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bootstrap/">bootstrap</a></li></ul>
@@ -589,7 +631,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/18/2017-12-18-angular-tips-n-tricks/" data-id="cjf6u4sku006klgqqwdj9rsjk" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/18/2017-12-18-angular-tips-n-tricks/" data-id="cjfy2n8nv000upyvhahnvp1w3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/forms/">forms</a></li></ul>
@@ -638,7 +680,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/09/2017-12-09-ngx-translate-extract-csv-v-1-1-1/" data-id="cjf6u4shu000rlgqqslglqgdc" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/09/2017-12-09-ngx-translate-extract-csv-v-1-1-1/" data-id="cjfy2n8oa0015pyvhrgvetous" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Localization/">Localization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i18n/">i18n</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li></ul>
@@ -686,79 +728,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/08/2017-12-08-ngx-translate-extract-csv-v1-0-0/" data-id="cjf6u4shs000plgqq7xo7065h" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/08/2017-12-08-ngx-translate-extract-csv-v1-0-0/" data-id="cjfy2n8ny000vpyvhz72q58tv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Localization/">Localization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/i18n/">i18n</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2017-12-03-android-basics-lesson-4-notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" class="article-date">
-  <time datetime="2017-12-03T17:35:13.000Z" itemprop="datePublished">2017-12-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/Development/">Development</a>►<a class="article-category-link" href="/categories/Android/Development/Layout/">Layout</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/">Practice Building Android Layouts / Udacity course Lesson 4 notes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course</em></p>
-<p>The course actually gave instructions and a challenge of building your own card as android app using Android Studio and deploying in a real Android device.</p>
-<p>Here are my notes which can be found also at My GistHub:</p>
-<h2 id="Preparing-to-work-with-Android"><a href="#Preparing-to-work-with-Android" class="headerlink" title="Preparing to work with Android"></a>Preparing to work with Android</h2><ul>
-<li>Download and install latest <a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">Android Studio.</a></li>
-<li>Configure your phone to become developer (<a href="https://www.youtube.com/watch?v=1dpuTC4YJyU" target="_blank" rel="external">YouTube instruction video</a>)</li>
-<li>Connect your phone to the computer</li>
-<li>Install Driver (Windows environments only). (<a href="https://developer.android.com/studio/run/oem-usb.html" target="_blank" rel="external">Details Here</a>)</li>
-</ul>
-<h2 id="From-Design-to-Code"><a href="#From-Design-to-Code" class="headerlink" title="From Design to Code"></a>From Design to Code</h2><ol>
-<li>Identify the Views to use (TextView? ImageView?)</li>
-<li>Position the Views (ViewGroups and positioning)</li>
-<li>Style the views (Fonts, colors, sizes, etc.)</li>
-</ol>
-<h2 id="Referencing-an-image"><a href="#Referencing-an-image" class="headerlink" title="Referencing an image"></a>Referencing an image</h2><p>Images are saved in <code>app/drawable</code> folder. E.g <code>androidparty.jpg</code>.</p>
-<p>Then they can be referenced as <code>source</code> from the ImageView.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">...  </div><div class="line">  android:src=&quot;@drawable/androidparty&quot; /&gt;</div></pre></td></tr></table></figure>
-<p><em>Note: No need to add the extension of the image file.</em></p>
-<h2 id="A-Sample-ImageView"><a href="#A-Sample-ImageView" class="headerlink" title="A Sample ImageView"></a>A Sample ImageView</h2><p>Use it as a quick reference for ImageView properties:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:scaleType=&quot;centerCrop&quot;</div><div class="line">        android:src=&quot;@drawable/myImage&quot;</div><div class="line">        /&gt;</div></pre></td></tr></table></figure>
-<h2 id="A-Sample-TextView"><a href="#A-Sample-TextView" class="headerlink" title="A Sample TextView"></a>A Sample TextView</h2><p>Use it as a quick reference for TextView properties:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:layout_marginTop=&quot;16dp&quot;</div><div class="line">    android:layout_marginLeft=&quot;16dp&quot;</div><div class="line">    android:text=&quot;Hello World&quot;</div><div class="line">    android:fontFamily=&quot;sans-serif-light&quot;</div><div class="line">    android:textColor=&quot;@android:color/white&quot;</div><div class="line">    android:textSize=&quot;32sp&quot;</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
-<h2 id="Draw-Your-Own-Card-challenge"><a href="#Draw-Your-Own-Card-challenge" class="headerlink" title="Draw Your Own Card challenge"></a>Draw Your Own Card challenge</h2><p>Here’s the reference to my own card that I created as part of the practical challenge of this lesson:<br><a href="https://discussions.udacity.com/t/make-your-own-card/19643/6766" target="_blank" rel="external">https://discussions.udacity.com/t/make-your-own-card/19643/6766</a></p>
-<p>I actually created a Memory card for my son Orestis to remember the trip we took with “Mountzouris” Locomotive train last summer (2017).</p>
-<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/portrait.png" title="Card in Portrait mode">
-<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/landscape.png" title="Card in Landscape mode">
-<p><em>Captain Out…</em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" data-id="cjf6u4shr000olgqqzedn16ku" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layouts/">layouts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity/">udacity</a></li></ul>
 
     </footer>
   </div>
@@ -809,7 +782,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -820,6 +793,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/04/13/2018-04-13-immutable-class/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/">Larissa Developers Meetup / Ionic Framework presentation</a>
@@ -835,10 +812,6 @@
         
           <li>
             <a href="/2017/12/31/2017-12-31-dependency-injection-cheatsheet/">Angular Dependency Injection Cheatsheet</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/2017-12-28-gist-update/">Angular Forms, Angular Directives</a>
           </li>
         
       </ul>

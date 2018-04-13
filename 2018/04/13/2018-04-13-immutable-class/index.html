@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2017 | Exploring Code Universe</title>
+  <title>Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Exploring code universe. This is my experencie and notes of this exploration.">
-<meta property="og:type" content="website">
+  <meta name="description" content="Immutable ClassPlease refer to my Github project for details. This is a class structure for creating immutable objects in typescript / angular. An immutable object is one that you do not update its co">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Exploring Code Universe">
-<meta property="og:url" content="http://killerchip.net/archives/2017/page/2/index.html">
+<meta property="og:url" content="http://killerchip.net/2018/04/13/2018-04-13-immutable-class/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta property="og:description" content="Immutable ClassPlease refer to my Github project for details. This is a class structure for creating immutable objects in typescript / angular. An immutable object is one that you do not update its co">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-04-13T15:21:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exploring Code Universe">
-<meta name="twitter:description" content="Exploring code universe. This is my experencie and notes of this exploration.">
+<meta name="twitter:description" content="Immutable ClassPlease refer to my Github project for details. This is a class structure for creating immutable objects in typescript / angular. An immutable object is one that you do not update its co">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -67,215 +68,58 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/24/2017-11-24-rxjs-angular-examples/" class="archive-article-date">
-  <time datetime="2017-11-24T05:28:45.000Z" itemprop="datePublished">Nov 24</time>
+        <section id="main"><article id="post-2018-04-13-immutable-class" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/13/2018-04-13-immutable-class/" class="article-date">
+  <time datetime="2018-04-13T14:41:23.000Z" itemprop="datePublished">2018-04-13</time>
 </a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/24/2017-11-24-rxjs-angular-examples/">Use Cases of RxJS with Angular</a>
-    </h1>
-  
-
-    </header>
+    
   </div>
-</article>
-  
+  <div class="article-inner">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" class="archive-article-date">
-  <time datetime="2017-11-23T20:01:07.000Z" itemprop="datePublished">Nov 23</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/">IoT Workshop / Voxxed Days Thessaloniki 2017</a>
-    </h1>
-  
+        <h1 id="Immutable-Class"><a href="#Immutable-Class" class="headerlink" title="Immutable Class"></a>Immutable Class</h1><p><em>Please refer to my <a href="https://github.com/killerchip/angular-cheatsheet/tree/immutable-class" target="_blank" rel="external">Github project</a> for details.</em></p>
+<p>This is a class structure for creating immutable objects in typescript / angular. An immutable object is one that you do not update its contents. Instead you create a new object with altered content and then replace the original with a new one. The initial intention is to be used with ngx-model.</p>
+<p>In this example we are creating a class that models a person .</p>
+<h2 id="Define-an-interface"><a href="#Define-an-interface" class="headerlink" title="Define an interface"></a>Define an interface</h2><p>First define an interface to be applied to the <code>constructor</code> of the class:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export interface IPerson &#123;</div><div class="line">  name: string;</div><div class="line">  surname: string;</div><div class="line">  age?: number;   //optional property</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-the-class"><a href="#Define-the-class" class="headerlink" title="Define the class"></a>Define the class</h2><p>Define the class with its constructor and the properties:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  //Define the class Person</div><div class="line">  name: string;</div><div class="line">  surname: string;</div><div class="line">  age?: number;</div><div class="line"></div><div class="line">  constructor(newPerson: IPerson) &#123;</div><div class="line">    this.name = newPerson.name;</div><div class="line">    this.surname = newPerson.surname;</div><div class="line">    this.age = newPerson.age || 0;    //Default value in optional property</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-a-json-method"><a href="#Define-a-json-method" class="headerlink" title="Define a json method"></a>Define a json method</h2><p>A <code>.json()</code> method will allow you extracting the original data that the class was created with:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">    // Allows extraction of the original properties of the class</div><div class="line">  json(): IPerson &#123;</div><div class="line"></div><div class="line">    // Return the properties</div><div class="line">    return &#123;</div><div class="line">      name: this.name,</div><div class="line">      surname: this.surname,</div><div class="line">      age: this.age</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-a-clone-method"><a href="#Define-a-clone-method" class="headerlink" title="Define a clone method"></a>Define a clone method</h2><p>A <code>.clone()</code> method will allow you easily obtaining a clone of the object when needed:</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // Allows cloning of the object</div><div class="line">  clone(): Person &#123;</div><div class="line">    return new Person( this.json() );</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-an-update-method"><a href="#Define-an-update-method" class="headerlink" title="Define an update method"></a>Define an update method</h2><p>Although the name <code>.update()</code> refers to a mutable object, in practice this method will allow you easily to get a copy of the original object with updated properties.</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // Returns a new clone of the object with updated specific properties</div><div class="line">  update(data: Partial&lt;IPerson&gt;): Person &#123;</div><div class="line">    let result: IPerson = this.json();</div><div class="line">    for (let key in data) &#123;</div><div class="line">      result[key] = data[key];</div><div class="line">    &#125;</div><div class="line">    return new Person(result);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Define-any-additional-methods"><a href="#Define-any-additional-methods" class="headerlink" title="Define any additional methods"></a>Define any additional methods</h2><p>You define any additional methods and/or derived data as methods.</p>
+<p><strong>src/app/model/person.ts</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export class Person &#123;</div><div class="line">  ...</div><div class="line"></div><div class="line">  // A sample class method</div><div class="line">  getDescription(): string &#123;</div><div class="line">    return this.age &gt;= 18 ? &apos;adult&apos; : &apos;kid&apos;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>You are now having a class which can produce immutable objects. Its basic methods allows to easily manipulate the object and still keep it immutable.</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/16/2017-11-16-get-start-observables/" class="archive-article-date">
-  <time datetime="2017-11-16T21:29:07.000Z" itemprop="datePublished">Nov 16</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/16/2017-11-16-get-start-observables/">Getting started with Observables in Angular</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/11/2017-11-11-udacity-android-basics/" class="archive-article-date">
-  <time datetime="2017-11-11T21:23:04.000Z" itemprop="datePublished">Nov 11</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2018/04/13/2018-04-13-immutable-class/" data-id="cjfy2n8o40011pyvhximm8www" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/11/2017-11-11-udacity-android-basics/">Awarded Udacity Scholarship - Android Basics</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/11/2017-11-11-ionic-devapp/" class="archive-article-date">
-  <time datetime="2017-11-11T10:54:07.000Z" itemprop="datePublished">Nov 11</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/11/2017-11-11-ionic-devapp/">What is Ionic DevApp?</a>
-    </h1>
-  
-
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Larissa Developers Meetup / Ionic Framework presentation</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/11/2017-11-11-dotin-ai-1/" class="archive-article-date">
-  <time datetime="2017-11-11T10:10:53.000Z" itemprop="datePublished">Nov 11</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/11/2017-11-11-dotin-ai-1/">Dotin HR AI</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/04/2017-11-04-state-machines/" class="archive-article-date">
-  <time datetime="2017-11-04T10:10:10.000Z" itemprop="datePublished">Nov 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/04/2017-11-04-state-machines/">Getting started with State Machines</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/02/2017-11-02-cordova-android-volume/" class="archive-article-date">
-  <time datetime="2017-11-02T21:05:54.000Z" itemprop="datePublished">Nov 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/02/2017-11-02-cordova-android-volume/">Android Volume Cordova plugin</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/02/2017-11-02-ngx-translate-extract-csv/" class="archive-article-date">
-  <time datetime="2017-11-02T20:37:11.000Z" itemprop="datePublished">Nov 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/02/2017-11-02-ngx-translate-extract-csv/">JSON-CSV script for ngx-translate-extract</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/11/02/2017-11-02-hexo-github-pages/" class="archive-article-date">
-  <time datetime="2017-11-02T06:08:33.000Z" itemprop="datePublished">Nov 2</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/02/2017-11-02-hexo-github-pages/">Publish a Hexo Blog to Github Pages</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <a class="extend prev" rel="prev" href="/archives/2017/">&laquo; __('prev')</a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-  </nav>
 </section>
         
           <aside id="sidebar">

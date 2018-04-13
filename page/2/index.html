@@ -69,6 +69,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2017-12-03-android-basics-lesson-4-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" class="article-date">
+  <time datetime="2017-12-03T17:35:13.000Z" itemprop="datePublished">2017-12-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Android/">Android</a>►<a class="article-category-link" href="/categories/Android/Development/">Development</a>►<a class="article-category-link" href="/categories/Android/Development/Layout/">Layout</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/">Practice Building Android Layouts / Udacity course Lesson 4 notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Sharing my draft notes from Udacity’s Android Basics - Lesson 4 online course</em></p>
+<p>The course actually gave instructions and a challenge of building your own card as android app using Android Studio and deploying in a real Android device.</p>
+<p>Here are my notes which can be found also at My GistHub:</p>
+<h2 id="Preparing-to-work-with-Android"><a href="#Preparing-to-work-with-Android" class="headerlink" title="Preparing to work with Android"></a>Preparing to work with Android</h2><ul>
+<li>Download and install latest <a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">Android Studio.</a></li>
+<li>Configure your phone to become developer (<a href="https://www.youtube.com/watch?v=1dpuTC4YJyU" target="_blank" rel="external">YouTube instruction video</a>)</li>
+<li>Connect your phone to the computer</li>
+<li>Install Driver (Windows environments only). (<a href="https://developer.android.com/studio/run/oem-usb.html" target="_blank" rel="external">Details Here</a>)</li>
+</ul>
+<h2 id="From-Design-to-Code"><a href="#From-Design-to-Code" class="headerlink" title="From Design to Code"></a>From Design to Code</h2><ol>
+<li>Identify the Views to use (TextView? ImageView?)</li>
+<li>Position the Views (ViewGroups and positioning)</li>
+<li>Style the views (Fonts, colors, sizes, etc.)</li>
+</ol>
+<h2 id="Referencing-an-image"><a href="#Referencing-an-image" class="headerlink" title="Referencing an image"></a>Referencing an image</h2><p>Images are saved in <code>app/drawable</code> folder. E.g <code>androidparty.jpg</code>.</p>
+<p>Then they can be referenced as <code>source</code> from the ImageView.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">...  </div><div class="line">  android:src=&quot;@drawable/androidparty&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><em>Note: No need to add the extension of the image file.</em></p>
+<h2 id="A-Sample-ImageView"><a href="#A-Sample-ImageView" class="headerlink" title="A Sample ImageView"></a>A Sample ImageView</h2><p>Use it as a quick reference for ImageView properties:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:scaleType=&quot;centerCrop&quot;</div><div class="line">        android:src=&quot;@drawable/myImage&quot;</div><div class="line">        /&gt;</div></pre></td></tr></table></figure>
+<h2 id="A-Sample-TextView"><a href="#A-Sample-TextView" class="headerlink" title="A Sample TextView"></a>A Sample TextView</h2><p>Use it as a quick reference for TextView properties:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    android:layout_marginTop=&quot;16dp&quot;</div><div class="line">    android:layout_marginLeft=&quot;16dp&quot;</div><div class="line">    android:text=&quot;Hello World&quot;</div><div class="line">    android:fontFamily=&quot;sans-serif-light&quot;</div><div class="line">    android:textColor=&quot;@android:color/white&quot;</div><div class="line">    android:textSize=&quot;32sp&quot;</div><div class="line">/&gt;</div></pre></td></tr></table></figure>
+<h2 id="Draw-Your-Own-Card-challenge"><a href="#Draw-Your-Own-Card-challenge" class="headerlink" title="Draw Your Own Card challenge"></a>Draw Your Own Card challenge</h2><p>Here’s the reference to my own card that I created as part of the practical challenge of this lesson:<br><a href="https://discussions.udacity.com/t/make-your-own-card/19643/6766" target="_blank" rel="external">https://discussions.udacity.com/t/make-your-own-card/19643/6766</a></p>
+<p>I actually created a Memory card for my son Orestis to remember the trip we took with “Mountzouris” Locomotive train last summer (2017).</p>
+<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/portrait.png" title="Card in Portrait mode">
+<img src="/2017/12/03/2017-12-03-android-basics-lesson-4-notes/landscape.png" title="Card in Landscape mode">
+<p><em>Captain Out…</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2017/12/03/2017-12-03-android-basics-lesson-4-notes/" data-id="cjfy2n8nq000rpyvhzdssklld" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layouts/">layouts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity/">udacity</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2017-11-28-serial-queries" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/11/28/2017-11-28-serial-queries/" class="article-date">
@@ -108,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/28/2017-11-28-serial-queries/" data-id="cjf6u4shw000ulgqq0ne790nn" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/28/2017-11-28-serial-queries/" data-id="cjfy2n8nn000ppyvhivon0tze" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
@@ -229,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" data-id="cjf6u4shl000glgqq8x5jflv4" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" data-id="cjfy2n8nl000opyvh4eti5tj8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
@@ -275,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/26/2017-11-26-android-basics-part-2/" data-id="cjf6u4sho000llgqqf2ly7l50" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/26/2017-11-26-android-basics-part-2/" data-id="cjfy2n8nh000lpyvh1jwwhlv1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layouts/">layouts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity/">udacity</a></li></ul>
@@ -350,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/" data-id="cjf6u4shy000vlgqqbbbosrcb" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/" data-id="cjfy2n8nd000kpyvhqjg02gzy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
@@ -398,7 +467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" data-id="cjf6u4she0009lgqqf5zjzmi0" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" data-id="cjfy2n8n6000epyvhmfquw9eb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iot/">iot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
@@ -452,7 +521,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/" data-id="cjf6u4shn000klgqqiv0iwu0n" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/" data-id="cjfy2n8n9000gpyvhth8ieux7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/observables/">observables</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
@@ -499,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-udacity-android-basics/" data-id="cjf6u4shi000elgqqtwr7jq4s" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-udacity-android-basics/" data-id="cjfy2n8n1000apyvh9qr077iq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
@@ -560,7 +629,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-ionic-devapp/" data-id="cjf6u4shg000algqqrswdz2os" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-ionic-devapp/" data-id="cjfy2n8mz0009pyvhsj0ucq67" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li></ul>
@@ -608,60 +677,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-dotin-ai-1/" data-id="cjf6u4sh90006lgqq4h8hb92i" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-dotin-ai-1/" data-id="cjfy2n8mw0006pyvh05cg5dn9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2017-11-04-state-machines" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/04/2017-11-04-state-machines/" class="article-date">
-  <time datetime="2017-11-04T10:10:10.000Z" itemprop="datePublished">2017-11-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/State-Machines/">State Machines</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/04/2017-11-04-state-machines/">Getting started with State Machines</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>Started exploring Finite State Machines, and how they can help with a better UX architectures. Especially interested how they can help with “chatty” UIs.</em></p>
-<p>Sharing some readings that can get you started:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Finite-state_machine" target="_blank" rel="external">Wikipedia: Finite State Machine</a></li>
-<li><a href="https://www.lucidchart.com/pages/uml/state-machine-diagram" target="_blank" rel="external">Lucid Chart: State Machine Diagram Tutorial</a></li>
-<li><a href="https://classes.soe.ucsc.edu/cmpe013/Spring11/LectureNotes/A_Crash_Course_in_UML_State_Machines.pdf" target="_blank" rel="external">Univercity of California: A Crash Course in UML State Machines (pdf)</a></li>
-</ul>
-<p><em>Captain out…</em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/04/2017-11-04-state-machines/" data-id="cjf6u4sh70005lgqqmhulhhq5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/state-machines/">state machines</a></li></ul>
 
     </footer>
   </div>
@@ -712,7 +731,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -723,6 +742,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/04/13/2018-04-13-immutable-class/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/">Larissa Developers Meetup / Ionic Framework presentation</a>
@@ -738,10 +761,6 @@
         
           <li>
             <a href="/2017/12/31/2017-12-31-dependency-injection-cheatsheet/">Angular Dependency Injection Cheatsheet</a>
-          </li>
-        
-          <li>
-            <a href="/2017/12/28/2017-12-28-gist-update/">Angular Forms, Angular Directives</a>
           </li>
         
       </ul>
