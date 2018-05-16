@@ -3,18 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Exploring Code Universe</title>
+  <title>ngx-model Recipes | Exploring Code Universe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Exploring code universe. This is my experencie and notes of this exploration. Coding examples, best practices, recipes, tutorial and more...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Exploring Code Universe">
-<meta property="og:url" content="http://killerchip.net/archives/index.html">
+  <meta name="description" content="Code recipes, tips-n-tricks and more for Angular’s ngx-model. ngx-model offers simple state management, one way data flow, multiple model support and immutable data exposed as RxJS Observable. The fol">
+<meta name="keywords" content="angular,ngx-model">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ngx-model Recipes">
+<meta property="og:url" content="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/index.html">
 <meta property="og:site_name" content="Exploring Code Universe">
-<meta property="og:description" content="Exploring code universe. This is my experencie and notes of this exploration. Coding examples, best practices, recipes, tutorial and more...">
+<meta property="og:description" content="Code recipes, tips-n-tricks and more for Angular’s ngx-model. ngx-model offers simple state management, one way data flow, multiple model support and immutable data exposed as RxJS Observable. The fol">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/tomastrajan/angular-model-pattern-example/master/src/assets/model_graph.png">
+<meta property="og:updated_time" content="2018-05-16T09:35:53.055Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Exploring Code Universe">
-<meta name="twitter:description" content="Exploring code universe. This is my experencie and notes of this exploration. Coding examples, best practices, recipes, tutorial and more...">
+<meta name="twitter:title" content="ngx-model Recipes">
+<meta name="twitter:description" content="Code recipes, tips-n-tricks and more for Angular’s ngx-model. ngx-model offers simple state management, one way data flow, multiple model support and immutable data exposed as RxJS Observable. The fol">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/tomastrajan/angular-model-pattern-example/master/src/assets/model_graph.png">
   
     <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
   
@@ -67,215 +71,70 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/16/2018-05-16-ngx-model-recipes/" class="archive-article-date">
-  <time datetime="2018-05-16T09:30:20.000Z" itemprop="datePublished">May 16</time>
+        <section id="main"><article id="post-2018-05-16-ngx-model-recipes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/16/2018-05-16-ngx-model-recipes/" class="article-date">
+  <time datetime="2018-05-16T09:30:20.000Z" itemprop="datePublished">2018-05-16</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Angular/">Angular</a>►<a class="article-category-link" href="/categories/Angular/ngx-model/">ngx-model</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/16/2018-05-16-ngx-model-recipes/">ngx-model Recipes</a>
+    <h1 class="article-title" itemprop="name">
+      ngx-model Recipes
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/15/2018-05-15-from-mockup-to-code/" class="archive-article-date">
-  <time datetime="2018-05-15T06:29:21.000Z" itemprop="datePublished">May 15</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/2018-05-15-from-mockup-to-code/">From Mockup Design to HTML code</a>
-    </h1>
-  
+        <p>Code recipes, tips-n-tricks and more for Angular’s <a href="https://github.com/tomastrajan/ngx-model" target="_blank" rel="noopener">ngx-model</a>.</p>
+<p>ngx-model offers simple state management, one way data flow, multiple model support and immutable data exposed as RxJS Observable.</p>
+<p>The following recipes build on the core ngx-model and add commonly needed functionality. It focuses on hosting model as immutable classes that have both properties and methods, and not simple objects/interfaces.</p>
+<p>Contents:</p>
+<ul>
+<li><p><a href="https://github.com/killerchip/ngx-model-recipes/tree/01-Object-model" target="_blank" rel="noopener">ngx-model for single Immutable Objects</a>: A service recipe that hosts model of a single Object.</p>
+</li>
+<li><p><a href="https://github.com/killerchip/ngx-model-recipes/tree/02-Array-model" target="_blank" rel="noopener">ngx-model for Array of Immutable Objects</a>: A service recipe that hosts model of an Array of immutable Objects.</p>
+</li>
+</ul>
+<p>Find the full project here: <a href="https://github.com/killerchip/ngx-model-recipes/" target="_blank" rel="noopener">https://github.com/killerchip/ngx-model-recipes/</a></p>
+<p><img src="https://raw.githubusercontent.com/tomastrajan/angular-model-pattern-example/master/src/assets/model_graph.png" alt=""></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/13/2018-05-13-simple-grid-system/" class="archive-article-date">
-  <time datetime="2018-05-13T09:31:12.000Z" itemprop="datePublished">May 13</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/13/2018-05-13-simple-grid-system/">A Simple CSS Grid system</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/10/2018-05-10-javascript-placement-in-html5/" class="archive-article-date">
-  <time datetime="2018-05-10T10:15:18.000Z" itemprop="datePublished">May 10</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/" data-id="cjh8wt9w4001w9uvhm4gn8780" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/10/2018-05-10-javascript-placement-in-html5/">Javascript placement in HTML5 document</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/10/2018-05-10-minimum-html5-page/" class="archive-article-date">
-  <time datetime="2018-05-10T09:43:17.000Z" itemprop="datePublished">May 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/10/2018-05-10-minimum-html5-page/">A minimum HMTL5 page</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-model/">ngx-model</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/15/2018-05-15-from-mockup-to-code/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">From Mockup Design to HTML code</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/05/2018-05-05-moodle-editathon/" class="archive-article-date">
-  <time datetime="2018-05-05T11:04:25.000Z" itemprop="datePublished">May 5</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/05/2018-05-05-moodle-editathon/">Moodle editathon - what a fun event...</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/04/13/2018-04-13-immutable-class/" class="archive-article-date">
-  <time datetime="2018-04-13T14:40:14.000Z" itemprop="datePublished">Apr 13</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/13/2018-04-13-immutable-class/">Immutable Class in Typescript/Angular</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" class="archive-article-date">
-  <time datetime="2018-03-25T13:00:14.000Z" itemprop="datePublished">Mar 25</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/">Larissa Developers Meetup / Ionic Framework presentation</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/21/2018-01-21-home-made-redux-store/" class="archive-article-date">
-  <time datetime="2018-01-21T21:04:58.000Z" itemprop="datePublished">Jan 21</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/21/2018-01-21-home-made-redux-store/">A Home-made Redux Store</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/01/06/2018-01-06-angular-routing/" class="archive-article-date">
-  <time datetime="2018-01-06T20:31:06.000Z" itemprop="datePublished">Jan 6</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/06/2018-01-06-angular-routing/">Angular Routing Cheatsheets</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">__('next') &raquo;</a>
-  </nav>
 </section>
         
           <aside id="sidebar">
