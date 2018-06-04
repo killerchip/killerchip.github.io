@@ -69,6 +69,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2017-11-28-serial-queries" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/28/2017-11-28-serial-queries/" class="article-date">
+  <time datetime="2017-11-28T21:15:58.000Z" itemprop="datePublished">2017-11-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/ReactiveX/">ReactiveX</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/">RxJS</a>►<a class="article-category-link" href="/categories/ReactiveX/RxJS/Angular/">Angular</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/28/2017-11-28-serial-queries/">Queries one after the other / RxJS examples</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>Another example use case of Angular-RxJS</em></p>
+<p>You can find this example and other examples in my <a href="https://gist.github.com/killerchip/ef7cd12fd82c179da0a51be24ee9a2dc" target="_blank" rel="noopener">Gist Repository</a>.</p>
+<h2 id="Launch-a-series-of-requests-one-after-the-other"><a href="#Launch-a-series-of-requests-one-after-the-other" class="headerlink" title="Launch a series of requests one after the other"></a>Launch a series of requests one after the other</h2><p>In this example we launch a series of requests from information derived from an array. The requests are launched one after the other. This means a “next” request is launched only when the “previous” has been resolved.</p>
+<p>The trick here is done by <code>concatMap</code> operator which does exactly what we want. So we create an <code>Observable</code> based on an array of initial values. Then <code>concatMap</code> will render them into a single stream the way we described above.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Observable &#125; from &apos;rxjs/Observable&apos;;</span><br><span class="line">import &apos;rxjs/add/observable/from&apos;;</span><br><span class="line">import &#123; concatMap &#125; from &apos;rxjs/operators&apos;;</span><br><span class="line">import &#123; HttpClient &#125; from &apos;@angular/common/http&apos;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">const myEvents: number[] = [1, 2, 3, 4, 5];</span><br><span class="line">const myobs = Observable.from(myEvents).pipe(</span><br><span class="line">  concatMap (evt =&gt; &#123;</span><br><span class="line">    return this.http.get(`https://jsonplaceholder.typicode.com/postss/$&#123;evt&#125;`);</span><br><span class="line">  &#125;),</span><br><span class="line">)</span><br><span class="line">.subscribe( /* handle events here */);</span><br></pre></td></tr></table></figure>
+<p><strong>Bypass errors</strong></p>
+<p>The above approach, will stop the stream if one of the requests returns an error. What if we wanted to continue with the next requests even if one of them returned an error?</p>
+<p>The <code>materialize</code> operator wraps all events (Events, Errors, Complete) to a new object called <code>Notification</code>. Thus errors and “complete” events are treated as normal events and do not stop the stream. Of course you have to handle the errors-complete events.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; materialize &#125; from &apos;rxjs/operators&apos;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"> return this.http.get(`https://jsonplaceholder.typicode.com/postss/$&#123;evt&#125;`).pipe(</span><br><span class="line">    materialize()</span><br><span class="line"> )</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2017/11/28/2017-11-28-serial-queries/" data-id="cji0ok31e000px8vhcic358oj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" class="article-date">
@@ -178,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" data-id="cjhz91szj000ry4vhmfnh1wjt" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/28/2017-11-26-voxxed-days-thessoloniki-wrapup-and-take-aways/" data-id="cji0ok31m0010x8vhjhscb53x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
@@ -224,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/26/2017-11-26-android-basics-part-2/" data-id="cjhz91szf000ly4vhonatjhmg" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/26/2017-11-26-android-basics-part-2/" data-id="cji0ok31d000mx8vh66b5pi04" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layouts/">layouts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/udacity/">udacity</a></li></ul>
@@ -299,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/" data-id="cjhz91sz9000ey4vh7co5fil9" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/24/2017-11-24-rxjs-angular-examples/" data-id="cji0ok31a000gx8vhox4bpqdy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
@@ -347,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" data-id="cjhz91sze000ky4vh02b99gcg" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/23/2017-11-23-voxxed-thessaloniki-iot-workshop/" data-id="cji0ok31b000lx8vh19ki50sc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iot/">iot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
@@ -401,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/" data-id="cjhz91szc000gy4vhf0txcneg" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/16/2017-11-16-get-start-observables/" data-id="cji0ok317000ex8vhbwqeyj3x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/observables/">observables</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rxjs/">rxjs</a></li></ul>
@@ -448,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-udacity-android-basics/" data-id="cjhz91sz7000ay4vhq7pzkr6t" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-udacity-android-basics/" data-id="cji0ok315000ax8vh4gapv58d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
@@ -509,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-ionic-devapp/" data-id="cjhz91sz50009y4vhanre7y82" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-ionic-devapp/" data-id="cji0ok30z0006x8vhl1ez81th" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li></ul>
@@ -557,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-dotin-ai-1/" data-id="cjhz91sz10006y4vh4760hop7" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/11/2017-11-11-dotin-ai-1/" data-id="cji0ok3120009x8vh37q9nnjc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li></ul>
@@ -607,56 +658,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/04/2017-11-04-state-machines/" data-id="cjhz91syu0004y4vhxqnmyaao" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/11/04/2017-11-04-state-machines/" data-id="cji0ok30p0001x8vh75uc2b25" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/state-machines/">state machines</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2017-11-02-cordova-android-volume" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/02/2017-11-02-cordova-android-volume/" class="article-date">
-  <time datetime="2017-11-02T21:05:54.000Z" itemprop="datePublished">2017-11-02</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Cordova/">Cordova</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/02/2017-11-02-cordova-android-volume/">Android Volume Cordova plugin</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>A Cordova plugin that reads and sets media volume in Android devices</em></p>
-<h6 id="Earth-Epoch-1509657017"><a href="#Earth-Epoch-1509657017" class="headerlink" title="Earth Epoch: 1509657017"></a>Earth Epoch: 1509657017</h6><p>I had found a Cordova plugin that is really cool for allowing volume control in Android devices. It was not packaged properly so it can be used by cordova command line tools. I repacked it properly and now is available:</p>
-<p><a href="https://www.npmjs.com/package/fm.radiant.cordova.utils.volume" target="_blank" rel="noopener">https://www.npmjs.com/package/fm.radiant.cordova.utils.volume</a></p>
-<p><em>Captain out…</em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/11/02/2017-11-02-cordova-android-volume/" data-id="cjhz91syl0000y4vhdt08onss" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cordova/">Cordova</a></li></ul>
 
     </footer>
   </div>
@@ -688,7 +693,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
     </div>
   </div>
 
@@ -698,7 +703,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 10px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
     </div>
   </div>
 
@@ -720,6 +725,10 @@
       <ul>
         
           <li>
+            <a href="/2018/06/04/2018-06-04-responsive-layout-example/">Responsive Layout Example</a>
+          </li>
+        
+          <li>
             <a href="/2018/06/03/2018-06-02-responsive-side-menu/">Responsive Side Menu</a>
           </li>
         
@@ -733,10 +742,6 @@
         
           <li>
             <a href="/2018/05/15/2018-05-15-from-mockup-to-code/">From Mockup Design to HTML code</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/13/2018-05-13-simple-grid-system/">A Simple CSS Grid system</a>
           </li>
         
       </ul>
