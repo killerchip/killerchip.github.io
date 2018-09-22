@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Setting up Prettier along ESLint | Exploring Code Universe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="In my previous article “ESlint configuration on Meteor-React project” I showed you how you can install and configure ESLint for automatically enforcing code-style to your Javascript code. With Prettie">
+<meta name="keywords" content="javascript,prettier">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Setting up Prettier along ESLint">
+<meta property="og:url" content="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/index.html">
+<meta property="og:site_name" content="Exploring Code Universe">
+<meta property="og:description" content="In my previous article “ESlint configuration on Meteor-React project” I showed you how you can install and configure ESLint for automatically enforcing code-style to your Javascript code. With Prettie">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-22T12:54:16.738Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Setting up Prettier along ESLint">
+<meta name="twitter:description" content="In my previous article “ESlint configuration on Meteor-React project” I showed you how you can install and configure ESLint for automatically enforcing code-style to your Javascript code. With Prettie">
+  
+    <link rel="alternate" href="/atom.xml" title="Exploring Code Universe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Exploring Code Universe</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Coding examples, best practices, recipes, tutorial and more...</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://killerchip.net"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-09-22-prettier-config" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/22/2018-09-22-prettier-config/" class="article-date">
+  <time datetime="2018-09-22T10:22:21.000Z" itemprop="datePublished">2018-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Setting up Prettier along ESLint
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>In my previous article <a href="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/">“ESlint configuration on Meteor-React project”</a> I showed you how you can install and configure ESLint for automatically enforcing code-style to your Javascript code. With <a href="https://prettier.io/" target="_blank" rel="noopener">Prettier</a> you can take this one step further and have Prettier do the actual formatting part of your code style.</p>
+<p>This is an article on how you can easily integrate <em>Prettier</em> into your project in combination with <em>ESLint</em>.</p>
+<h2 id="Prettier-vs-ESLint"><a href="#Prettier-vs-ESLint" class="headerlink" title="Prettier vs ESLint"></a>Prettier vs ESLint</h2><p><em>ESLint</em> is concerned both for code quality and code formatting styles.</p>
+<p><em>Prettier</em> is only concerned with the formatting styles of your code.</p>
+<p>So eventually you can keep <em>ESLint</em> for code quality and use <em>Prettier</em> for formatting your code.</p>
+<h2 id="Install-Prettier"><a href="#Install-Prettier" class="headerlink" title="Install Prettier"></a>Install Prettier</h2><p>You should install <em>Prettier</em> pinned to a specific version. The creators most probably will introduce stylistic changes between releases. So you don’t want to automatically update your <em>Prettier</em> package, before you check it.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev --save-exact prettier</span><br></pre></td></tr></table></figure>
+<h2 id="Integrating-with-ESLint"><a href="#Integrating-with-ESLint" class="headerlink" title="Integrating with ESLint"></a>Integrating with ESLint</h2><p>By integrating we mean that each time you run <em>ESLint</em>, it will automatically run <em>Prettier</em> checks and report any non-compliances along with the normal <em>ESLint</em> issues. For this you will have to install <a href="https://github.com/prettier/eslint-plugin-prettier" target="_blank" rel="noopener">eslint-plugin-prettier</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev eslint-plugin-prettier</span><br></pre></td></tr></table></figure>
+<p>Then bind the plugin to <em>ESLint</em> via ESLint configuration.</p>
+<p><em>.eslintrc.json</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;plugins&quot;: [&quot;prettier&quot;],</span><br><span class="line">  &quot;rules&quot;: &#123;</span><br><span class="line">    &quot;prettier/prettier&quot;: &quot;error&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Disable-ESLint-formatting-rules"><a href="#Disable-ESLint-formatting-rules" class="headerlink" title="Disable ESLint formatting rules"></a>Disable ESLint formatting rules</h2><p>Since now you will be using <em>Prettier</em> for code styling (not quality), you should disable the styling rules of <em>ESLint</em> so you don’t have conflicts between the packages. You don’t want <em>ESLint</em> to complain about styles that were fixed by <em>Prettier</em>.</p>
+<p>The easiest way to do this, is to install <a href="https://github.com/prettier/eslint-config-prettier" target="_blank" rel="noopener">eslint-config-prettier</a>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev eslint-config-prettier</span><br></pre></td></tr></table></figure>
+<p>and in <em>.eslintrc.json</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;extends&quot;: [..., &quot;prettier&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Re-enabling-some-ESLint-Rules"><a href="#Re-enabling-some-ESLint-Rules" class="headerlink" title="Re-enabling some ESLint Rules"></a>Re-enabling some ESLint Rules</h2><p>Now <em>Prettier</em> has disabled styling rules from <em>ESLint</em> but in addition some other quality rules, that MAY conflict. So you may want to re-enable these rules again in <em>ESLint</em>. In addition there are some configurations/rules between the two packages that need to be configured properly so they work together.</p>
+<p>I urge you to read the <a href="https://github.com/prettier/eslint-config-prettier##special-rules" target="_blank" rel="noopener">special rules documentation</a> and re-enable rules and make adjustments to your needs.</p>
+<p><em>ESLint</em> rules can be re-enabled in <em>.eslintrc.json</em> config file. <em>Prettier</em> configuration can be stored in <em>.prettierrc.json</em> file.</p>
+<p>My preffered <em>.eslintrc.json</em> (see <code>curly</code>, <code>max-len</code>, <code>no-confusing-arrow</code> rules):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;extends&quot;: [</span><br><span class="line">        &quot;@meteorjs/eslint-config-meteor&quot;,</span><br><span class="line">        &quot;prettier&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;plugins&quot;: [&quot;prettier&quot;],</span><br><span class="line">    &quot;rules&quot;: &#123;</span><br><span class="line">        &quot;prettier/prettier&quot;: &quot;error&quot;,</span><br><span class="line">        &quot;indent&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            4</span><br><span class="line">        ],</span><br><span class="line">        &quot;linebreak-style&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            &quot;unix&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;quotes&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            &quot;single&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;semi&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            &quot;always&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;no-console&quot;: &quot;off&quot;,</span><br><span class="line">        &quot;import/prefer-default-export&quot;: &quot;off&quot;,</span><br><span class="line">        &quot;curly&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            &quot;all&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;max-len&quot;: [</span><br><span class="line">            &quot;error&quot;,</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;code&quot;: 80,</span><br><span class="line">                &quot;ignoreUrls&quot;: true</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;no-confusing-arrow&quot;: [</span><br><span class="line">            &quot;error&quot;, </span><br><span class="line">            &#123;</span><br><span class="line">                &quot;allowParens&quot;: false</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>And my preffered <em>.prettierrc.json</em> file:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;tabWidth&quot;: 4,</span><br><span class="line">    &quot;singleQuote&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Calling-Prettier-manually"><a href="#Calling-Prettier-manually" class="headerlink" title="Calling Prettier manually"></a>Calling Prettier manually</h2><p>You can setup an npm script to scan your code and prettify it:</p>
+<p><em>package.json</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;scripts&quot;: &#123;</span><br><span class="line">        &quot;pretty:write&quot;: &quot;node_modules/.bin/prettier --write &apos;./**/*.&#123;js,jsx,scss&#125;&apos;&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>It write directly to the files and make changes. So better to have committed you changes before you ‘prettify’ them. So you can revert back.</p>
+<p>If you want to exclude specific folders/files from the script, you can setup a <code>.prettierignore</code> file:</p>
+<p><em>.prettierignore</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dist/</span><br><span class="line">node_modules/</span><br></pre></td></tr></table></figure></p>
+<h2 id="Git-Hooks"><a href="#Git-Hooks" class="headerlink" title="Git Hooks"></a>Git Hooks</h2><p>A recommended approach is to ‘hook’ <em>Prettier</em> with <em>git</em> so you can prettify your files when you commit your changes.</p>
+<p>There are various solutions to this and you can explore them here: <a href="https://prettier.io/docs/en/precommit.html" target="_blank" rel="noopener">https://prettier.io/docs/en/precommit.html</a></p>
+<p><strong>Precise-Commits</strong></p>
+<p>The <a href="https://github.com/nrwl/precise-commits" target="_blank" rel="noopener">precise-commits</a> package will trigger <em>Prettier</em> only for lines that you changed during commit. This can be a very convinient approach for large projects with an established code base, which you want to prettify in stages.</p>
+<p>You can install it along with <a href="https://github.com/typicode/husky" target="_blank" rel="noopener">husky</a> package to hook it into <em>git</em>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install precise-commits husky@next --save-dev</span><br></pre></td></tr></table></figure>
+<p>And then hook it to git:</p>
+<p><em>package.json</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;husky&quot;: &#123;</span><br><span class="line">    &quot;hooks&quot;: &#123;</span><br><span class="line">      &quot;pre-commit&quot;: &quot;precise-commits&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Each time you commit your changes, the script will run and prettify your changes (thus needing an additional commit).</p>
+<h2 id="VSCode-plugin"><a href="#VSCode-plugin" class="headerlink" title="VSCode plugin"></a>VSCode plugin</h2><p>If you are using <em>VSCode</em> editor you can alwasy install the appropriate plugin so you prettify your code while you are writing it.</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/" data-id="cjmdfp7x60025g7vhd85prbth" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prettier/">prettier</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/20/2018-08-20-meteor-react-eslint/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ESlint configuration on Meteor-React project</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Activity/">Activity</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Development/">Development</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/Development/Layout/">Layout</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/">Angular</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/Bootstrap/">Bootstrap</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/Dependency-Injection/">Dependency Injection</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/ReactiveX/">ReactiveX</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/Redux/">Redux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/Routing/">Routing</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Angular/ngx-model/">ngx-model</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cordova/">Cordova</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML5/">HTML5</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/HTML5/Bootstrap/">Bootstrap</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML5/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML5/Responsive/">Responsive</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hybrid-Mobile/">Hybrid Mobile</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hybrid-Mobile/Ionic/">Ionic</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internationalization/">Internationalization</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Internationalization/Angular/">Angular</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/IoT/">IoT</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/IoT/Raspberry-Pi/">Raspberry Pi</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Meteor/">Meteor</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Meteor/React/">React</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Meteor/React/ESLint/">ESLint</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReactiveX/">ReactiveX</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ReactiveX/RxJS/">RxJS</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ReactiveX/RxJS/Angular/">Angular</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/State-Machines/">State Machines</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Typescript/">Typescript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Typescript/Angular/">Angular</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/Static-Site-Generators/">Static Site Generators</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/Static-Site-Generators/Hexo/">Hexo</a></li></ul></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 10px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 12.5px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/09/22/2018-09-22-prettier-config/">Setting up Prettier along ESLint</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/20/2018-08-20-meteor-react-eslint/">ESlint configuration on Meteor-React project</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/01/2018-07-01-react-begineer-cheatsheet/">React - A Beginner&#39;s Cheatsheet</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/04/2018-06-04-responsive-layout-example/">Responsive Layout Example</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/03/2018-06-02-responsive-side-menu/">Responsive Side Menu</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 killerchip<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
