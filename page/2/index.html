@@ -69,6 +69,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2018-05-13-simple-grid-system" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/13/2018-05-13-simple-grid-system/" class="article-date">
+  <time datetime="2018-05-13T09:31:12.000Z" itemprop="datePublished">2018-05-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HTML5/">HTML5</a>►<a class="article-category-link" href="/categories/HTML5/CSS/">CSS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/13/2018-05-13-simple-grid-system/">A Simple CSS Grid system</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Github project: <a href="https://github.com/killerchip/html5-cheatsheet/tree/simple-grid-framework" target="_blank" rel="noopener">https://github.com/killerchip/html5-cheatsheet/tree/simple-grid-framework</a></p>
+<p>This is a very minimum grid system that you can apply in simple cases and you do not wish to include a full-force commercial framework.</p>
+<p>It is using a 12-column grid.</p>
+<p><img src="https://raw.githubusercontent.com/killerchip/html5-cheatsheet/simple-grid-framework/columns.png" alt=""></p>
+<h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><ol>
+<li>Copy the contents of <code>my-fmw/grid.css</code> into your project.</li>
+<li>Reference it from your HTML5 page: <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;grid.css&quot;&gt;</code></li>
+<li>Enclose your layout in <code>grid</code> class so you can define a maximum width</li>
+<li>Create your rows with <code>row</code> class</li>
+<li>Define your colums with <code>col-1</code> to <code>col-11</code> classes    </li>
+</ol>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><em><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/home.html" target="_blank" rel="noopener">home.html</a></em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- </span><br><span class="line">    Demo page that demonstrates the use of a simple Grid framework.</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Grid test&lt;/title&gt;</span><br><span class="line">    &lt;!-- This is the actual grid imported --&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./my-fmw/grid.css&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Additional stylesheet to help visualize the grid system--&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./grid-test.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;grid&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-1&quot;&gt;1/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-11&quot;&gt;11/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-2&quot;&gt;2/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-10&quot;&gt;10/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-3&quot;&gt;3/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-9&quot;&gt;9/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-4&quot;&gt;4/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-8&quot;&gt;8/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-5&quot;&gt;5/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-7&quot;&gt;7/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-6&quot;&gt;6/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-6&quot;&gt;6/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Project-contents"><a href="#Project-contents" class="headerlink" title="Project contents"></a>Project contents</h2><p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/my-fmw/grid.css" target="_blank" rel="noopener">grid.css</a></strong> -  The actual grid system file</p>
+<p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/home.html" target="_blank" rel="noopener">home.html</a></strong> - A page demonstrating how to use the grid system</p>
+<p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/grid-test.css" target="_blank" rel="noopener">grid-test.css</a></strong> - Additional styles to visual the grid system demonstration</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2018/05/13/2018-05-13-simple-grid-system/" data-id="cjs7k347j001jvqvhxrywq6n1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grid/">grid</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2018-05-10-javascript-placement-in-html5" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/05/10/2018-05-10-javascript-placement-in-html5/" class="article-date">
@@ -104,7 +162,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/10/2018-05-10-javascript-placement-in-html5/" data-id="cjq99ppdg001ndavhjw5te68n" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/10/2018-05-10-javascript-placement-in-html5/" data-id="cjs7k347n001pvqvhys32bouh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
@@ -156,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/10/2018-05-10-minimum-html5-page/" data-id="cjq99ppdh001odavholy4okfl" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/10/2018-05-10-minimum-html5-page/" data-id="cjs7k347o001svqvhizwsak56" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/validators/">validators</a></li></ul>
@@ -207,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/05/2018-05-05-moodle-editathon/" data-id="cjq99ppde001idavh90xch1pw" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/05/2018-05-05-moodle-editathon/" data-id="cjs7k347k001lvqvhcjt0ept9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/moodle/">moodle</a></li></ul>
@@ -265,7 +323,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/04/13/2018-04-13-immutable-class/" data-id="cjq99ppdf001kdavh0zsrepsv" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/04/13/2018-04-13-immutable-class/" data-id="cjs7k347i001hvqvhhprqeh5r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/immutables/">immutables</a></li></ul>
@@ -314,7 +372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" data-id="cjq99ppda001cdavh8j9ec1iq" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/03/25/2018-03-25-lardev-meetup-ionic-presentation/" data-id="cjs7k347m001ovqvh0fzzcmew" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ionic/">ionic</a></li></ul>
@@ -380,7 +438,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/01/21/2018-01-21-home-made-redux-store/" data-id="cjq99ppdc001gdavhzu8nkvcz" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/01/21/2018-01-21-home-made-redux-store/" data-id="cjs7k347h001dvqvh37zhzv9c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux/">redux</a></li></ul>
@@ -432,7 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/01/06/2018-01-06-angular-routing/" data-id="cjq99ppd80018davh8hlz5qhg" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/01/06/2018-01-06-angular-routing/" data-id="cjs7k347e0017vqvhei8iygw9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/routing/">routing</a></li></ul>
@@ -493,7 +551,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" data-id="cjq99ppdb001ddavhqg4mclit" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/31/2017-12-31-dependency-injection-cheatsheet/" data-id="cjs7k347d0016vqvhldbfl7dc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/di/">di</a></li></ul>
@@ -685,64 +743,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/28/2017-12-28-gist-update/" data-id="cjq99ppd70016davh4ycz6epv" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2017/12/28/2017-12-28-gist-update/" data-id="cjs7k347g001bvqvhpdb8mtki" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/directives/">directives</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/forms/">forms</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2017-12-23-angular-bootstrap" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/12/23/2017-12-23-angular-bootstrap/" class="article-date">
-  <time datetime="2017-12-23T20:39:24.000Z" itemprop="datePublished">2017-12-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Angular/">Angular</a>►<a class="article-category-link" href="/categories/Angular/Bootstrap/">Bootstrap</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/23/2017-12-23-angular-bootstrap/">Setup Bootstrap in Angular Project</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>Here follow instructions on how to setup Bootstrap in your Angular project.</em></p>
-<p>The instructions below can be found in my <a href="https://gist.github.com/killerchip/ef7cd12fd82c179da0a51be24ee9a2dc" target="_blank" rel="noopener">Angular Gist</a>.</p>
-<hr>
-<p>The instructions here are based on this post…<br><a href="https://medium.com/codingthesmartway-com-blog/using-bootstrap-with-angular-c83c3cee3f4a" target="_blank" rel="noopener">https://medium.com/codingthesmartway-com-blog/using-bootstrap-with-angular-c83c3cee3f4a</a></p>
-<p>The method here is using Bootstrap 4 (beta.2) with ng-bootstrap package.</p>
-<p><strong>Install ng-bootstrap</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save @ng-bootstrap/ng-bootstrap</span><br></pre></td></tr></table></figure></p>
-<p><strong>Install bootstrap 4</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save bootstrap@4.0.0-beta-2</span><br></pre></td></tr></table></figure></p>
-<p><strong>Add files to angular-cli.json</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&quot;styles&quot;: [</span><br><span class="line">    &quot;styles.css&quot;,</span><br><span class="line">    &quot;../node_modules/bootstrap/dist/css/bootstrap.min.css&quot;</span><br><span class="line">  ],</span><br><span class="line">  &quot;scripts&quot;: [</span><br><span class="line">    &quot;../node_modules/bootstrap/dist/js/bootstrap.min.js&quot;</span><br><span class="line">  ],</span><br></pre></td></tr></table></figure></p>
-<p><strong>Import NgbModule</strong><br>Import NgbModule in app.component<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; NgbModule &#125; from &apos;@ng-bootstrap/ng-bootstrap&apos;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [AppComponent, ...],</span><br><span class="line">  imports: [NgbModule.forRoot(), ...],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line">export class AppModule &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>(Optionally) Import in other modules</strong><br>If you need to import in other modules, import without the <code>.forRoot()</code> method:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@NgModule(&#123;</span><br><span class="line">  declarations: [OtherComponent, ...],</span><br><span class="line">  imports: [NgbModule, ...]</span><br><span class="line">&#125;)</span><br><span class="line">export class OtherModule &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>Captain out</em></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2017/12/23/2017-12-23-angular-bootstrap/" data-id="cjq99ppd40012davhj3ovozr7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bootstrap/">bootstrap</a></li></ul>
 
     </footer>
   </div>
@@ -774,7 +778,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
     </div>
   </div>
 
@@ -784,7 +788,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 12.5px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/flow-router/" style="font-size: 10px;">flow-router</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 15px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
     </div>
   </div>
 
@@ -793,7 +797,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -804,6 +808,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/02/16/20190216-meteor-role-based-routing/">MeteorJS - Role Based Routing example</a>
+          </li>
         
           <li>
             <a href="/2018/12/29/2018-12-29-Meteor-react-f7-integration/">Meteor + React + F7 Integration Guide</a>
@@ -821,10 +829,6 @@
             <a href="/2018/07/01/2018-07-01-react-begineer-cheatsheet/">React - A Beginner&#39;s Cheatsheet</a>
           </li>
         
-          <li>
-            <a href="/2018/06/04/2018-06-04-responsive-layout-example/">Responsive Layout Example</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -837,7 +841,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 killerchip<br>
+      &copy; 2019 killerchip<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

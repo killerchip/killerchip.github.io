@@ -69,6 +69,116 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-20190216-meteor-role-based-routing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/16/20190216-meteor-role-based-routing/" class="article-date">
+  <time datetime="2019-02-16T14:04:12.000Z" itemprop="datePublished">2019-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Meteor/">Meteor</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/16/20190216-meteor-role-based-routing/">MeteorJS - Role Based Routing example</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/killerchip/meteor-cheatsheet/blob/master/subprojects/role-based-routing/readme.md" target="_blank" rel="noopener">This is a sample project / guide</a> on setting up a Meteor app with top level routing based on the role of the user.</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The app based on the following concepts.</p>
+<ul>
+<li>Users can be ‘normal’ users, or can have an <code>admin</code> role.</li>
+<li>The app has top level parts (routes).<ul>
+<li>Public area: Can be accessed by anyone, in order to authenticate</li>
+<li>App area: This is the normal usage of the app that can be used both types of users.</li>
+<li>Admin Portal area: This area should be accessible only by users with <code>admin</code> role.</li>
+</ul>
+</li>
+<li>In addition:<ul>
+<li>Public area is available both on web and cordova platforms</li>
+<li>Admin Portal is availble only in Web platform. <code>admin</code> users that login in Cordova environment are redirected to App area.</li>
+<li>App area is only available on Cordova platform. If any user tries to access it on Web, the user is redirected to a ‘block’ page.</li>
+</ul>
+</li>
+</ul>
+<p>The app can be adapted to switch various other cases, like adding more roles or removing the above restrictions.</p>
+<h2 id="Packages-used"><a href="#Packages-used" class="headerlink" title="Packages used"></a>Packages used</h2><p>The app is based on the following <code>atmosphere.js</code> packages.</p>
+<ul>
+<li><code>alanning:roles</code> for managing roles of users</li>
+<li><code>kadira:flow-router</code> for routing.</li>
+</ul>
+<p>It is based on <em>React</em> but it can easily be adapted to <em>Blaze</em> templates.</p>
+<h2 id="Router-init-after-subscriptions-complete"><a href="#Router-init-after-subscriptions-complete" class="headerlink" title="Router init after subscriptions complete"></a>Router init after subscriptions complete</h2><p>A basic concept that it demonstrates is how to ‘stall’ the router initialization until the needed subscriptions are finished. This is because we need specific information fetched from database before making a routing decision.</p>
+<p>In the example below, the router initialization waits for 3 subscriptions to finish.</p>
+<ul>
+<li>The <code>me</code> subscription: It fetches our full <em>user document</em> with all necessary fields.</li>
+<li>The <code>Roles.subscription</code>: This subscription is created by the <code>alanning:roles</code> package. In this case is not necessary since we have the <code>me</code> subscription. It is put here as demo. In only the <code>roles</code> field is needed to make routing decision, the <code>me</code> subscription can be skipped.</li>
+<li>The <code>companies</code> subscription: This demonstrates the case were there is need for other subscriptions needed for the routing decision. Again it is put here as demo, because it is not actually used in the routing decision.</li>
+</ul>
+<p>Finally before the router is initialized, a check is performed in case it already has been initialized.</p>
+<p><strong>routes.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">FlowRouter.wait();</span><br><span class="line"></span><br><span class="line">Tracker.autorun(() =&gt; &#123;</span><br><span class="line">    const mesub = Meteor.subscribe(&apos;me&apos;);</span><br><span class="line">    const companiesSubscription = Meteor.subscribe(&apos;companies&apos;);</span><br><span class="line"></span><br><span class="line">    const shouldInitializeRouter =</span><br><span class="line">        mesub.ready() &amp;&amp;</span><br><span class="line">        Roles.subscription.ready() &amp;&amp;</span><br><span class="line">        companiesSubscription.ready() &amp;&amp;</span><br><span class="line">        !FlowRouter._initialized; // eslint-disable-line no-underscore-dangle</span><br><span class="line"></span><br><span class="line">    if (shouldInitializeRouter) &#123;</span><br><span class="line">        FlowRouter.initialize();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="The-top-level-areas"><a href="#The-top-level-areas" class="headerlink" title="The top-level areas"></a>The top-level areas</h2><p>We app is ‘partitioned’ in 3 areas.</p>
+<ul>
+<li>Public Area: which will contain pages accessible by unauthenticated users. In this example, it has only one route. It is the <code>/login</code> which renders the Login page.</li>
+<li>App area (<code>/app</code>): This area offers the App’s functionality for normal users.</li>
+<li>Admin area (<code>/admin</code>): This area is the Admin Portal of the app. It should be accessible only by users with <code>admin</code> role.</li>
+</ul>
+<p>These areas are translated in routes definitions as <em>FlowRouter</em> <code>groups</code>.</p>
+<p><strong>routes.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const publicRoutes = FlowRouter.group(&#123;</span><br><span class="line">    name: &apos;publicRoutes&apos;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const appRoutes = FlowRouter.group(&#123;</span><br><span class="line">    prefix: &apos;/app&apos;,</span><br><span class="line">    name: &apos;appRoutes&apos;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const adminRoutes = FlowRouter.group(&#123;</span><br><span class="line">    prefix: &apos;/admin&apos;,</span><br><span class="line">    name: &apos;adminRoutes&apos;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>And the corresponding routes (only one page per area in this demo.)</p>
+<p><strong>routes.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">publicRoutes.route(&apos;/login&apos;, &#123;</span><br><span class="line">    action() &#123;</span><br><span class="line">        mount(LoginPage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">appRoutes.route(&apos;/&apos;, &#123;</span><br><span class="line">    action() &#123;</span><br><span class="line">        mount(DummyPage, &#123; title: &apos;App for Users&apos; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">adminRoutes.route(&apos;/&apos;, &#123;</span><br><span class="line">    action() &#123;</span><br><span class="line">        mount(DummyPage, &#123; title: &apos;Portal for Admins&apos; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h1 id="The-root-‘-‘-path"><a href="#The-root-‘-‘-path" class="headerlink" title="The root ‘/‘ path"></a>The root ‘/‘ path</h1><p>The app’s entry point will be the root (<code>/</code>) path. So this path is not part of any <code>group</code> (or area). Is it used for entry point decision. It lands the user on the proper area based on the user’s authentication status and role.</p>
+<p><strong>router.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FlowRouter.route(&apos;/&apos;, &#123;</span><br><span class="line">    action() &#123;</span><br><span class="line">        FlowRouter.go(getRouteBasedOnRole());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>role-routing.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">export const getRouteBasedOnRole = () =&gt; &#123;</span><br><span class="line">    const user = Meteor.user();</span><br><span class="line"></span><br><span class="line">    // land unauthenticated users on login page</span><br><span class="line">    if (!user) &#123;</span><br><span class="line">        return &apos;/login&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // land Admins on Admin Portal</span><br><span class="line">    if (Roles.userIsInRole(user, ROLES.ADMIN)) &#123;</span><br><span class="line">        return &apos;/admin&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // No ROLE means normal user. Land on App area</span><br><span class="line">    return &apos;/app&apos;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Route-Guards"><a href="#Route-Guards" class="headerlink" title="Route Guards"></a>Route Guards</h2><p>So the app’s entry will land user normally. But in case of web, user can directly enter the URL paths to land on. Protection is needed on pages from unauthorized access (authentication status and roles) and not-supported access (area app vs platform; remember that certain parts of the app should be available only on specific platforms).</p>
+<p>The approach here is to write <em>guard</em> functions that will check specific conditions and block access to the route, by redirecting to the user elsewhere.</p>
+<p>These functions will be bound to route <code>groups</code> by using the <code>triggersEnter</code> hooks of <em>FlowRouter</em>.</p>
+<p>One <em>guard</em> function per case is created and then it is ‘hooked’ into the necessary routes group. Care must be taken in the order in which the <em>guards</em> are applied. It is important for delivering the guarding logic (review again the requirements at the start of this document).</p>
+<p>If all the <em>guards</em> are executed and no <code>redirect</code> happens, then the route will be entered.</p>
+<p>So the route groups now become:</p>
+<p><strong>routes.js</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const appRoutes = FlowRouter.group(&#123;</span><br><span class="line">    prefix: &apos;/app&apos;,</span><br><span class="line">    name: &apos;appRoutes&apos;,</span><br><span class="line">    triggersEnter: [authGuard, blockAppUsageInWeb]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const adminRoutes = FlowRouter.group(&#123;</span><br><span class="line">    prefix: &apos;/admin&apos;,</span><br><span class="line">    name: &apos;adminRoutes&apos;,</span><br><span class="line">    triggersEnter: [authGuard, adminRoleGuard, blockAdminPortalInCordova]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-route-guards-in-detail"><a href="#The-route-guards-in-detail" class="headerlink" title="The route guards in detail"></a>The route guards in detail</h3><p>The <code>triggersEnter</code> hooks are calling the <em>guard</em> functions with two parameters.</p>
+<ul>
+<li><code>context</code> which contains the current route properties</li>
+<li><code>redirect</code>. A function that can be used to redirect the browser to a new route.</li>
+</ul>
+<p>Notice, that when a user is ‘kicked out’ of a route, the user is <code>redirected</code> to root route (<code>/</code>) so the proper routing decision is taken. This way the routing logic does not have to be implemented in each <em>guard</em>. Care must be taken though, so no ‘loops’ are created.</p>
+<p><strong><em>authGuard</em></strong></p>
+<p>If the user is not authenticated, is kicked out of the route<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export const authGuard = (context, redirect) =&gt; &#123;</span><br><span class="line">    if (!Meteor.userId()) &#123;</span><br><span class="line">        redirect(&apos;/&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>adminRoleGuard</em></strong></p>
+<p>If the user has not the <code>admin</code> role, is kicked out of the route.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export const adminRoleGuard = (context, redirect) =&gt; &#123;</span><br><span class="line">    const user = Meteor.user();</span><br><span class="line"></span><br><span class="line">    if (!Roles.userIsInRole(user, ROLES.ADMIN)) &#123;</span><br><span class="line">        redirect(&apos;/&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>blockAdminPortalInCordova</em></strong></p>
+<p>This <em>guard</em> is used in Admin Portal group and after the user has been evaluated for the <code>admin</code> role. So if the <code>admin</code> user is in mobile platform, then redirect to App area, in order to use the app as normal user.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export const blockAdminPortalInCordova = (context, redirect) =&gt; &#123;</span><br><span class="line">    if (Meteor.isCordova) &#123;</span><br><span class="line">        redirect(&apos;/app&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Note: The user is not redirected to <code>/</code> because the root logic will land him again in this area.</p>
+<p><strong><em>blockAppAreaInWeb</em></strong></p>
+<p>This <em>guard</em> is used in App area. If the platform is web, the user is not allowed to use. The user is not redirected to <code>/</code> because the logic will land him again here. Thus the user is redirected in a ‘block’ page, to be informed that the usage is not allowed in web-platform.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export const blockAppAreaInWeb = (context, redirect) =&gt; &#123;</span><br><span class="line">    // App (as normal user) is not allowed in Web</span><br><span class="line">    if (!Meteor.isCordova) &#123;</span><br><span class="line">        redirect(&apos;/ban-access&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2019/02/16/20190216-meteor-role-based-routing/" data-id="cjs7k3481002dvqvhpqgkjs7o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2018-12-29-Meteor-react-f7-integration" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/29/2018-12-29-Meteor-react-f7-integration/" class="article-date">
@@ -146,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/12/29/2018-12-29-Meteor-react-f7-integration/" data-id="cjq99ppgb00a1davhsdjnqoux" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/12/29/2018-12-29-Meteor-react-f7-integration/" data-id="cjs7k347y0029vqvhurtia92z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework7/">framework7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -221,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/" data-id="cjq99ppdt002adavhrbc2lgso" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/" data-id="cjs7k3482002fvqvh53fl727o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prettier/">prettier</a></li></ul>
@@ -288,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/" data-id="cjq99ppds0027davh9dckbp8d" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/" data-id="cjs7k347w0026vqvhgzejhy25" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eslint/">eslint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -384,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/07/01/2018-07-01-react-begineer-cheatsheet/" data-id="cjq99ppdq0025davh18ime5df" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/07/01/2018-07-01-react-begineer-cheatsheet/" data-id="cjs7k347z002bvqvhdfe0wlh7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -437,7 +547,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/06/04/2018-06-04-responsive-layout-example/" data-id="cjq99ppdn0021davhlm9enj9d" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/06/04/2018-06-04-responsive-layout-example/" data-id="cjs7k347s001zvqvh6p5mcsiq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layout/">layout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/responsive/">responsive</a></li></ul>
@@ -488,7 +598,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/06/03/2018-06-02-responsive-side-menu/" data-id="cjq99ppdm001zdavhpodzyxk9" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/06/03/2018-06-02-responsive-side-menu/" data-id="cjs7k347u0023vqvhop4j5pks" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/menu/">menu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/responsive/">responsive</a></li></ul>
@@ -566,7 +676,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/22/2018-05-22-bootstrap-starter-templates/" data-id="cjq99ppdl001ydavhs04x20m4" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/22/2018-05-22-bootstrap-starter-templates/" data-id="cjs7k347t0021vqvh9h3wmpi6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
@@ -620,7 +730,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/" data-id="cjq99ppdp0023davhd9zy2ok2" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/" data-id="cjs7k347p001uvqvhvyeah5fd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-model/">ngx-model</a></li></ul>
@@ -688,68 +798,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/15/2018-05-15-from-mockup-to-code/" data-id="cjq99ppdj001sdavh1gmu8h0w" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/15/2018-05-15-from-mockup-to-code/" data-id="cjs7k347r001yvqvh2si28jnw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/guide/">guide</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mockup/">mockup</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2018-05-13-simple-grid-system" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/13/2018-05-13-simple-grid-system/" class="article-date">
-  <time datetime="2018-05-13T09:31:12.000Z" itemprop="datePublished">2018-05-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/HTML5/">HTML5</a>►<a class="article-category-link" href="/categories/HTML5/CSS/">CSS</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/13/2018-05-13-simple-grid-system/">A Simple CSS Grid system</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Github project: <a href="https://github.com/killerchip/html5-cheatsheet/tree/simple-grid-framework" target="_blank" rel="noopener">https://github.com/killerchip/html5-cheatsheet/tree/simple-grid-framework</a></p>
-<p>This is a very minimum grid system that you can apply in simple cases and you do not wish to include a full-force commercial framework.</p>
-<p>It is using a 12-column grid.</p>
-<p><img src="https://raw.githubusercontent.com/killerchip/html5-cheatsheet/simple-grid-framework/columns.png" alt=""></p>
-<h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><ol>
-<li>Copy the contents of <code>my-fmw/grid.css</code> into your project.</li>
-<li>Reference it from your HTML5 page: <code>&lt;link rel=&quot;stylesheet&quot; href=&quot;grid.css&quot;&gt;</code></li>
-<li>Enclose your layout in <code>grid</code> class so you can define a maximum width</li>
-<li>Create your rows with <code>row</code> class</li>
-<li>Define your colums with <code>col-1</code> to <code>col-11</code> classes    </li>
-</ol>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><em><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/home.html" target="_blank" rel="noopener">home.html</a></em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- </span><br><span class="line">    Demo page that demonstrates the use of a simple Grid framework.</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Grid test&lt;/title&gt;</span><br><span class="line">    &lt;!-- This is the actual grid imported --&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./my-fmw/grid.css&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- Additional stylesheet to help visualize the grid system--&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./grid-test.css&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;grid&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-1&quot;&gt;1/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-11&quot;&gt;11/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-2&quot;&gt;2/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-10&quot;&gt;10/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-3&quot;&gt;3/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-9&quot;&gt;9/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-4&quot;&gt;4/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-8&quot;&gt;8/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-5&quot;&gt;5/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-7&quot;&gt;7/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div class=&quot;row&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;col-6&quot;&gt;6/12&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;col-6&quot;&gt;6/12&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="Project-contents"><a href="#Project-contents" class="headerlink" title="Project contents"></a>Project contents</h2><p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/my-fmw/grid.css" target="_blank" rel="noopener">grid.css</a></strong> -  The actual grid system file</p>
-<p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/home.html" target="_blank" rel="noopener">home.html</a></strong> - A page demonstrating how to use the grid system</p>
-<p><strong><a href="https://github.com/killerchip/html5-cheatsheet/blob/simple-grid-framework/grid-test.css" target="_blank" rel="noopener">grid-test.css</a></strong> - Additional styles to visual the grid system demonstration</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/13/2018-05-13-simple-grid-system/" data-id="cjq99ppdk001udavhssk4pi8g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grid/">grid</a></li></ul>
 
     </footer>
   </div>
@@ -781,7 +833,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
     </div>
   </div>
 
@@ -791,7 +843,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 12.5px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/flow-router/" style="font-size: 10px;">flow-router</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 15px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
     </div>
   </div>
 
@@ -800,7 +852,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -811,6 +863,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/02/16/20190216-meteor-role-based-routing/">MeteorJS - Role Based Routing example</a>
+          </li>
         
           <li>
             <a href="/2018/12/29/2018-12-29-Meteor-react-f7-integration/">Meteor + React + F7 Integration Guide</a>
@@ -828,10 +884,6 @@
             <a href="/2018/07/01/2018-07-01-react-begineer-cheatsheet/">React - A Beginner&#39;s Cheatsheet</a>
           </li>
         
-          <li>
-            <a href="/2018/06/04/2018-06-04-responsive-layout-example/">Responsive Layout Example</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -844,7 +896,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 killerchip<br>
+      &copy; 2019 killerchip<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
