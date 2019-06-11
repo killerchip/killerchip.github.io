@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <title>Exploring Code Universe</title>
@@ -28,7 +28,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container">
     <div id="wrap">
@@ -68,6 +68,128 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-20190611-react-router-cheatsheet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/11/20190611-react-router-cheatsheet/" class="article-date">
+  <time datetime="2019-06-11T00:45:27.000Z" itemprop="datePublished">2019-06-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/11/20190611-react-router-cheatsheet/">React router cheatsheet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This is a cheatsheet for <strong>React Router</strong>. It can also be found in my <a href="https://github.com/killerchip/react-cheatsheet/blob/master/react-router/react-router.md" target="_blank" rel="noopener">React Cheatsheet github project</a>.</p>
+<p><img src="https://camo.githubusercontent.com/f63754b8412368e820601967af6dea84312b925b/68747470733a2f2f7265616374747261696e696e672e636f6d2f72656163742d726f757465722f616e64726f69642d6368726f6d652d313434783134342e706e67" alt></p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-router-dom</span><br></pre></td></tr></table></figure>
+<h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const BasicExample = () =&gt; (</span><br><span class="line">  &lt;Router&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;&lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;&lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;&lt;Link to=&quot;/users&quot;&gt;Users&lt;/Link&gt;&lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">      &lt;hr/&gt;</span><br><span class="line"></span><br><span class="line">      &lt;Route exact path=&quot;/&quot; component=&#123;Home&#125;/&gt;</span><br><span class="line">      &lt;Route path=&quot;/about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line">      &lt;Route path=&quot;/users&quot; component=&#123;Users&#125;/&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/Router&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="About-Paths"><a href="#About-Paths" class="headerlink" title="About Paths"></a>About Paths</h2><p><code>&lt;Route path=&quot;/about&quot; component={About}/&gt;</code> means: when in route <code>/about</code> render the <code>About</code> component.</p>
+<p><code>path=</code> uses a regex. So <code>path=&quot;/home&quot;</code> will match both <code>http://.../home</code> and <code>http://.../home/123</code></p>
+<p>If more than one <code>Routes</code> match a path, all matching routes will be rendered.</p>
+<p><strong>Root (/) path</strong></p>
+<p>Especially take care about the <code>/</code>  (root) path, as it will match all paths (e.g. it will match also <code>/home</code>, <code>/home/123/</code> etc.). Use <code>exact path=</code> for the root path (or any other path that needs exact match).</p>
+<p><strong>Trailing slashes</strong></p>
+<p> Trailing slashes on the URL don’t matter on the match. <code>strict path</code> make the trailing slash matter. So:</p>
+<ul>
+<li><code>strict path=&quot;/home/&quot;</code> will match <code>http://.../home/</code> but not <code>http://.../home</code></li>
+<li><code>path=&quot;/home/&quot;</code> will match <code>http://.../home/</code> and <code>http://.../home</code></li>
+<li><code>strict path=&quot;/home&quot;</code> will match <code>http://.../home/</code> and <code>http://.../home</code>, anyways</li>
+</ul>
+<p>A Route component with no path property will always trigger a match and render.</p>
+<h2 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h2><p><code>&lt;Link to...&gt;</code> changes the URL path</p>
+<p>All Route <code>Component</code>‘s get passed the <code>match</code> prop which contains information on the current URL.</p>
+<h2 id="About-Route-render-methods"><a href="#About-Route-render-methods" class="headerlink" title="About Route render methods"></a>About Route render methods</h2><p>Use <code>component=</code> for components. Don’t pass inline functions.</p>
+<p>Use <code>render=</code> for inline function.</p>
+<p>Use <code>children</code> for components that always will be rendered. Also make sure that you pass inline function here. Using a <code>Route children...</code> path instead of a typical React Component allows the rendered component to get some route information via the props injected by the router.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;/about&quot; children=&#123;(props) =&gt; &lt;div&gt;Always rendered&lt;/div&gt;&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>An example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const About = (props) =&gt; &#123;</span><br><span class="line">  console.log(props.match)</span><br><span class="line">  // Object &#123;path: &quot;/about&quot;, url: &quot;/about&quot;, isExact: true, params: Object&#125;</span><br><span class="line"></span><br><span class="line">  console.log(props.location)</span><br><span class="line">  // Object &#123;pathname: &quot;/about&quot;, search: &quot;&quot;, hash: &quot;&quot;, state: undefined&#125;</span><br><span class="line"></span><br><span class="line">  console.log(props.history)</span><br><span class="line">  // Object &#123;length: 1, action: &quot;POP&quot;, location: Object&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Match"><a href="#Match" class="headerlink" title="Match"></a>Match</h3><ul>
+<li><p><strong>params</strong> (object) - contains key/value pairs of the dynamic segments that are used in the path pattern (e.g. {userId = 123} when path = “/user/:userId” and the URL is “/user/123”)</p>
+</li>
+<li><p><strong>isExact</strong> (boolean) - true if the URL is an exact match with the path property.</p>
+</li>
+<li><p><strong>path</strong> (string) - the path property of the route component. Useful for building nested routes.</p>
+</li>
+<li><p><strong>url</strong> (string) - the matched portion of the URL. Useful for building nested Links</p>
+</li>
+</ul>
+<p>Note: The match object is null when there is no match.</p>
+<h3 id="Location"><a href="#Location" class="headerlink" title="Location"></a>Location</h3><p>A location object is passed down to all components rendered from Route components as a property. The location object contains the following information about the path that was rendered:</p>
+<ul>
+<li><strong>pathname</strong> (string) - the full path of the URL</li>
+<li><strong>search</strong> (string) - the URL query string</li>
+<li><strong>hash</strong> (string) - the URL hash fragment</li>
+<li><strong>state</strong> (object) - the current state, if a state was provided to history.push(path, [state]), otherwise undefined</li>
+</ul>
+<h3 id="History"><a href="#History" class="headerlink" title="History"></a>History</h3><p>A history object is passed down to all components rendered from Route components as a property. The history object contains the following information about the path that was rendered:</p>
+<ul>
+<li><strong>length</strong> (number) - The number of entries in the history stack</li>
+<li><strong>action</strong> (string) - (PUSH, POP, or REPLACE)</li>
+<li><strong>location</strong> (object) - see location</li>
+</ul>
+<p>It also has the following methods:</p>
+<ul>
+<li><strong>push(path, [state])</strong> - (function) Pushes a new entry onto the history</li>
+<li><strong>replace(path, [state])</strong> - (function) Replaces the current entry on the history stack</li>
+<li><strong>go(n)</strong> - (function) Moves the pointer in the history stack by n entries</li>
+<li><strong>goBack()</strong> - (function) Equivalent to go(-1)</li>
+<li><strong>goForward()</strong> - (function) Equivalent to go(1)</li>
+<li><strong>block(prompt)</strong> - (function) Prevents navigation (see the history docs)</li>
+</ul>
+<h2 id="Nested-routes"><a href="#Nested-routes" class="headerlink" title="Nested routes"></a>Nested routes</h2><p>It is pretty straight forward to nest Route components within each other. The <code>match.url</code> property is useful if you want to add path segments onto the original matched url. For example, if you want to add additional Route components within a component rendered from an original Route component do the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const Info = (&#123;match&#125;) =&gt; &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Route path=&quot;&#123;match.url + &quot;/telephone&quot;&#125;&quot; render=&#123;(props) =&gt; &lt;div&gt;Phone: 999 999 9999&lt;/div&gt;&#125;/&gt; // renders when URL = /info/phone`</span><br><span class="line"></span><br><span class="line">      &lt;Route path=&quot;&#123;match.url + &quot;/e-mail&quot;&#125;&quot; render=&#123;(props) =&gt; &lt;div&gt;Email: email@example.com&lt;/div&gt;&#125;/&gt; renders when URL = /info/email</span><br><span class="line"></span><br><span class="line">      &lt;Route path=&quot;&#123;match.url + &quot;/strAddress&quot;&#125;&quot; render=&#123;(props) =&gt; &lt;div&gt;Address: 211 Sesame Str&lt;/div&gt;&#125;/&gt; renders when URL = /info/address</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">)&#125;</span><br><span class="line"></span><br><span class="line">const App = () =&gt; (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;BrowserRouter&gt;</span><br><span class="line">      &lt;Route path=&quot;/info&quot; component = &#123;Info&#125;/&gt;</span><br><span class="line">    &lt;/BrowserRouter&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>See that nested Route <em>extends</em> the parent url <code>match.url</code>.</p>
+<h2 id="NavLinks"><a href="#NavLinks" class="headerlink" title="NavLinks"></a>NavLinks</h2><p>NavLinks are like links but get special CSS classes when they are active:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NavLink to=&quot;/info&quot; activeClassName=&quot;selected&quot;&gt;Info&lt;/NavLink&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="activeStyle"><a href="#activeStyle" class="headerlink" title="activeStyle"></a>activeStyle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink to=&quot;/info&quot; activeStyle=&#123;&#123;color:&apos;red&apos;&#125;&#125;&gt;Info&lt;/NavLink&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="isActive"><a href="#isActive" class="headerlink" title="isActive"></a>isActive</h3><p>The NavLink component has an isActive property that triggers a function when the NavLink is active.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavLink to=&quot;/info&quot; isActive=&#123;() =&gt; console.log(&apos;Info router selected))&#125;&gt;Info&lt;/NavLink&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="exact"><a href="#exact" class="headerlink" title="exact"></a>exact</h3><p>The NavLink component has an exact property that only lets the NavLink become active when the location is matched exactly.</p>
+<h3 id="strict"><a href="#strict" class="headerlink" title="strict"></a>strict</h3><p>The NavLink component has a strict property that causes trailing slashes to be taken into consideration when determining whether the NavLink is active.</p>
+<h2 id="Switch-Component"><a href="#Switch-Component" class="headerlink" title="Switch Component"></a>Switch Component</h2><p>It will only render the <strong>first</strong> route that will match.</p>
+<p>example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line"> &lt;Route exact path=&quot;/&quot; component=&#123;Home&#125;/&gt;</span><br><span class="line"> &lt;Route path=&quot;/about&quot; component=&#123;About&#125;/&gt;</span><br><span class="line"> &lt;Route path=&quot;/users/:id&quot; component=&#123;User&#125;/&gt;</span><br><span class="line"> &lt;Route component=&#123;DefaultRoute&#125;/&gt; //if no other routes match, this route will render for sure</span><br><span class="line">&lt;/Switch&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Redirect-component"><a href="#Redirect-component" class="headerlink" title="Redirect component"></a>Redirect component</h1><p>Redirects to URL when rendered. It’s a way to ‘programmatically’ cause redirection.</p>
+<p>Typical case is to be used inside other <code>Route</code>s. Redirect on error example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">let validUser = false;</span><br><span class="line"></span><br><span class="line">const ValidateUser = () =&gt; &#123;</span><br><span class="line">    if(validUser)&#123;</span><br><span class="line">        return &lt;div&gt;Welcome User&lt;/div&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        return &lt;Redirect to=&quot;/error&quot;/&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const Login = () =&gt; &#123;</span><br><span class="line">    validUser = true</span><br><span class="line">    return &lt;div&gt;Logged In&lt;/div&gt; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const Error = () =&gt; &#123;</span><br><span class="line">    return &lt;div&gt;Please Log In&lt;/div&gt; </span><br><span class="line">&#125;</span><br><span class="line">&lt;Route exact path=&quot;/user&quot; render=&#123;ValidateUser&#125;/&gt;</span><br><span class="line">&lt;Route exact path=&quot;/error&quot; render=&#123;Error&#125;/&gt;</span><br><span class="line">&lt;Route exact path=&quot;/login&quot; render=&#123;Login&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>Redirects can also be used inside Switches. To use a Redirect within a Switch component, add a from property to the Redirect component. The Switch component will render the first component that matches, whether it is a Route or a Redirect. The from property can be only used with Redirects that are within Switch components.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route path=&apos;/user&apos; component=&#123;User&#125;/&gt;</span><br><span class="line">  &lt;Redirect exact from=&apos;/&apos; to=&apos;/user&apos;/&gt;</span><br><span class="line">  &lt;Redirect from=&apos;/oldPageURL&apos; to =&apos;/newPageURL&apos;/&gt;</span><br><span class="line">  &lt;Route component=&#123;DefaultPage&#125;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/Switch&gt;</span><br></pre></td></tr></table></figure>
+<p>Example of default root route redirect<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Redirect exact from=&quot;/&quot; to=&quot;/home&quot; /&gt;</span><br><span class="line">  &lt;Route path=&quot;/home&quot; component=&#123;Home&#125; /&gt;</span><br><span class="line">  &lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</span><br><span class="line">  &lt;Route path=&quot;/users/:id&quot; component=&#123;Users&#125; /&gt;</span><br><span class="line">  &lt;Route path=&quot;/error&quot; component=&#123;Error&#125; /&gt;</span><br><span class="line">  &lt;Route component=&#123;DefaultRoute&#125; /&gt;</span><br><span class="line">&lt;/Switch&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Prompt"><a href="#Prompt" class="headerlink" title="Prompt"></a>Prompt</h1><p>When rendered it watches if you want to leave the current URL path and prompts.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route exact path=&quot;/&quot; component=&#123;Home&#125; /&gt;</span><br><span class="line">&lt;Route path=&quot;/about&quot; component=&#123;About&#125; /&gt;</span><br><span class="line">&lt;Route path=&quot;/users/:id&quot; component=&#123;Users&#125; /&gt;</span><br><span class="line">&lt;Prompt message=&quot;Are you sure you want to leave?&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>when</strong></p>
+<p>The when attribute is a boolean that can be used to enable or disable the Prompt component. Set it to false when you want to disable the Prompt component and allow the user the navigate away without seeing a Prompt. The when attribute is set to true by default.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> var notSaved = true</span><br><span class="line">&lt;Prompt when=&#123;notSaved&#125; message=&quot;Are you sure you want to leave without saving?&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Example-of-‘subroutes’"><a href="#Example-of-‘subroutes’" class="headerlink" title="Example of ‘subroutes’"></a>Example of ‘subroutes’</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import React from &quot;react&quot;;</span><br><span class="line">import &#123; Link, Switch, Route &#125; from &quot;react-router-dom&quot;;</span><br><span class="line"></span><br><span class="line">const projects = [</span><br><span class="line">    &#123;link: &apos;/game_project&apos;, name: &apos;Game Project&apos;&#125;,</span><br><span class="line">    &#123;link: &apos;/react_project&apos;, name: &apos;React Project&apos;&#125;,</span><br><span class="line">    &#123;link: &apos;/db_project&apos;, name: &apos;Database Project&apos;&#125;,</span><br><span class="line">    &#123;link: &apos;/ml_project&apos;, name: &apos;Machine Learning Project&apos;&#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">const Projects = (&#123; match &#125;) =&gt; (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &#123;projects.map (</span><br><span class="line">                project =&gt; (</span><br><span class="line">                    &lt;li&gt;</span><br><span class="line">                        &lt;Link to=&#123;`$&#123;match.url&#125;$&#123;project.link&#125;`&#125;&gt;&#123;project.name&#125;&lt;/Link&gt;</span><br><span class="line">                    &lt;/li&gt;</span><br><span class="line">                )</span><br><span class="line">            )&#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">            &lt;Route</span><br><span class="line">                path=&#123;match.url + &apos;/:project_link&apos;&#125;</span><br><span class="line">                render = &#123; (&#123;match&#125;) =&gt; &lt;div&gt;&#123;match.params.project_link&#125;&lt;/div&gt;&#125;</span><br><span class="line">            /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;Route exact path=&#123;match.url&#125; render=&#123;() =&gt; &lt;div&gt;Pick a Project to view!&lt;/div&gt;&#125; /&gt;å</span><br><span class="line">        &lt;/Switch&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default Projects;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://killerchip.net/2019/06/11/20190611-react-router-cheatsheet/" data-id="cjwr3c3gc002h21vhl37w9um3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react-router/">react router</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-20190216-meteor-role-based-routing" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -167,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2019/02/16/20190216-meteor-role-based-routing/" data-id="cjs7k3481002dvqvhpqgkjs7o" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2019/02/16/20190216-meteor-role-based-routing/" data-id="cjwr3c3g7002721vh630mj6ic" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li></ul>
@@ -256,7 +378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/12/29/2018-12-29-Meteor-react-f7-integration/" data-id="cjs7k347y0029vqvhurtia92z" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/12/29/2018-12-29-Meteor-react-f7-integration/" data-id="cjwr3c3g4002321vhz9isaeny" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/framework7/">framework7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -290,7 +412,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://prettier.io/icon.png" alt=""></p>
+        <p><img src="https://prettier.io/icon.png" alt></p>
 <p>In my previous article <a href="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/">“ESlint configuration on Meteor-React project”</a> I showed you how you can install and configure ESLint for automatically enforcing code-style to your Javascript code. With <a href="https://prettier.io/" target="_blank" rel="noopener">Prettier</a> you can take this one step further and have Prettier do the actual formatting part of your code style.</p>
 <p>This is an article on how you can easily integrate <em>Prettier</em> into your project in combination with <em>ESLint</em>.</p>
 <h2 id="Prettier-vs-ESLint"><a href="#Prettier-vs-ESLint" class="headerlink" title="Prettier vs ESLint"></a>Prettier vs ESLint</h2><p><em>ESLint</em> is concerned both for code quality and code formatting styles.</p>
@@ -331,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/" data-id="cjs7k3482002fvqvh53fl727o" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/09/22/2018-09-22-prettier-config/" data-id="cjwr3c3g5002521vhp3izvgc9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prettier/">prettier</a></li></ul>
@@ -370,7 +492,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>The following are simple instructions / recommendation on setting up <a href="https://eslint.org/" target="_blank" rel="noopener">ESlint</a> rules for a Meteor/React project.</p>
-<p><img src="https://www.brandeps.com/logo-download/E/Eslint-01.png" alt=""></p>
+<p><img src="https://www.brandeps.com/logo-download/E/Eslint-01.png" alt></p>
 <p>It is based on the recommendations of <a href="https://guide.meteor.com/code-style.html#eslint" target="_blank" rel="noopener">Meteor Guide</a> with additional modifications that found out working for my cases.</p>
 <p>The lint configuration is based on <a href="https://github.com/airbnb/javascript" target="_blank" rel="noopener">Airbnb lint configuration</a> and <a href="https://www.npmjs.com/package/eslint-plugin-react" target="_blank" rel="noopener">React-plugin</a>.</p>
 <h2 id="Install-ESLint"><a href="#Install-ESLint" class="headerlink" title="Install ESLint"></a>Install ESLint</h2><p>You can install ESLint for your project by issuing the command:</p>
@@ -398,7 +520,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/" data-id="cjs7k347w0026vqvhgzejhy25" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/08/20/2018-08-20-meteor-react-eslint/" data-id="cjwr3c3ga002d21vhb4dairzz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eslint/">eslint</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/meteor/">meteor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -437,7 +559,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>This a collection of cheatsheets for beginners in React. It is based on <a href="https://reactjs.org/docs/hello-world.html" target="_blank" rel="noopener">React JS Documentation</a>. Keep it handy for when you want quickly to refer on how to do React stuff.</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/320px-React-icon.svg.png" alt=""></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/320px-React-icon.svg.png" alt></p>
 <p><a href="https://github.com/killerchip/react-cheatsheet/tree/beginner-cheatsheet" target="_blank" rel="noopener">Find Github project with examples here…</a></p>
 <p><strong>Contents:</strong></p>
 <ul>
@@ -494,7 +616,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/07/01/2018-07-01-react-begineer-cheatsheet/" data-id="cjs7k347z002bvqvhdfe0wlh7" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/07/01/2018-07-01-react-begineer-cheatsheet/" data-id="cjwr3c3ge002k21vhxamybhvs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
@@ -534,7 +656,7 @@
       
         <p><a href="https://github.com/killerchip/html5-cheatsheet/tree/responsive/layout-example" target="_blank" rel="noopener">The project here</a> demonstrates basic elements of a Responsive Design Layout as a reference. </p>
 <p>It follows the mobile first approach. For small screens all columns are displayed on their own lines.<br>As the width grows, they are grouped in lines, but they are also re-ordered.</p>
-<p><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen1.png" alt=""><br><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen2.png" alt=""><br><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen3.png" alt=""></p>
+<p><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen1.png" alt><br><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen2.png" alt><br><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/layout-example/img/screen3.png" alt></p>
 <p>See the <a href="https://github.com/killerchip/html5-cheatsheet/blob/responsive/layout-example/css/main.css" target="_blank" rel="noopener">main.css</a> for more details.</p>
 <p>Tricks that are used:</p>
 <ul>
@@ -547,7 +669,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/06/04/2018-06-04-responsive-layout-example/" data-id="cjs7k347s001zvqvh6p5mcsiq" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/06/04/2018-06-04-responsive-layout-example/" data-id="cjwr3c3g1001z21vhx5joxf2k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/layout/">layout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/responsive/">responsive</a></li></ul>
@@ -586,7 +708,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>This is an example of how to create a side menu, without using any framework but pure HTML/CSS/JS</p>
-<p><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/side-menu/side-menu-screenshot.png" alt=""></p>
+<p><img src="https://github.com/killerchip/html5-cheatsheet/raw/responsive/side-menu/side-menu-screenshot.png" alt></p>
 <p><a href="https://github.com/killerchip/html5-cheatsheet/tree/responsive/side-menu" target="_blank" rel="noopener">Find here my full project here</a></p>
 <p>In our page we define a <code>nav</code> section which will be our menu.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">    &lt;nav class=&quot;menu&quot;&gt;</span><br><span class="line">        &lt;h2&gt;Menu&lt;/h2&gt;</span><br><span class="line">        &lt;p&gt;Click outside the menu to close it.&lt;/p&gt;</span><br><span class="line">    &lt;/nav&gt;</span><br><span class="line"></span><br><span class="line">    &lt;main class=&quot;page-content&quot;&gt;</span><br><span class="line">        &lt;!-- Page content goes here --&gt;</span><br><span class="line">    &lt;/main&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
@@ -598,7 +720,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/06/03/2018-06-02-responsive-side-menu/" data-id="cjs7k347u0023vqvhop4j5pks" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/06/03/2018-06-02-responsive-side-menu/" data-id="cjwr3c3g9002a21vhnfu4lxcs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/menu/">menu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/responsive/">responsive</a></li></ul>
@@ -636,7 +758,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-stack@2x.png" alt=""></p>
+        <p><img src="https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/assets/images/elements/bootstrap-stack@2x.png" alt></p>
 <p>This is a collection of starter template HTML pages with Bootstrap <em>4.1.1</em> capabilities. </p>
 <p>Use these pages to start a new page / project. It contains the necessary references to bootstrap related files.</p>
 <p><strong> Find the code at the correspoding <a href="https://github.com/killerchip/html5-cheatsheet/tree/bootstrap/starter-templates" target="_blank" rel="noopener">GitHub Project</a></strong></p>
@@ -676,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/22/2018-05-22-bootstrap-starter-templates/" data-id="cjs7k347t0021vqvh9h3wmpi6" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/22/2018-05-22-bootstrap-starter-templates/" data-id="cjwr3c3g2002121vhrlmzs2db" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
@@ -725,83 +847,15 @@
 </li>
 </ul>
 <p>Find the full project here: <a href="https://github.com/killerchip/ngx-model-recipes/" target="_blank" rel="noopener">https://github.com/killerchip/ngx-model-recipes/</a></p>
-<p><img src="https://raw.githubusercontent.com/tomastrajan/angular-model-pattern-example/master/src/assets/model_graph.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/tomastrajan/angular-model-pattern-example/master/src/assets/model_graph.png" alt></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/" data-id="cjs7k347p001uvqvhvyeah5fd" class="article-share-link">Share</a>
+      <a data-url="http://killerchip.net/2018/05/16/2018-05-16-ngx-model-recipes/" data-id="cjwr3c3fy001u21vh8v13d18f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ngx-model/">ngx-model</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2018-05-15-from-mockup-to-code" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/15/2018-05-15-from-mockup-to-code/" class="article-date">
-  <time datetime="2018-05-15T06:29:21.000Z" itemprop="datePublished">2018-05-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/HTML5/">HTML5</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/2018-05-15-from-mockup-to-code/">From Mockup Design to HTML code</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Here follows a checklist / guide on how to create HTML5 code from a mockup design.</p>
-<p>Start from here:<br><img src="https://github.com/killerchip/html5-cheatsheet/raw/from-mockup-to-code/material/boxes.png" alt=""></p>
-<p>And finish here:<br><img src="https://github.com/killerchip/html5-cheatsheet/raw/from-mockup-to-code/material/rendered.png" alt=""></p>
-<h2 id="Checklist"><a href="#Checklist" class="headerlink" title="Checklist"></a>Checklist</h2><p><strong>Page Layout</strong></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> Identify Boxes and sub-boxes</li>
-<li style="list-style: none"><input type="checkbox"> Position Boxes / Use Grid system</li>
-<li style="list-style: none"><input type="checkbox"> Put (placeholder) content</li>
-</ul>
-<p>Repeat the above steps progressively per ‘level’… from outer boxes to inner boxes. (See example below).</p>
-<p><strong>Box Layout</strong></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> Use a CSS normalizer</li>
-<li style="list-style: none"><input type="checkbox"> Identify margins &amp; paddings</li>
-<li style="list-style: none"><input type="checkbox"> Identify box styles<ul>
-<li style="list-style: none"><input type="checkbox"> background color/style</li>
-<li style="list-style: none"><input type="checkbox"> border color/style</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> Identify content text styles<ul>
-<li style="list-style: none"><input type="checkbox"> Font family, weight, color, style, etc…</li>
-<li style="list-style: none"><input type="checkbox"> Text positioning, overflow, etc…</li>
-</ul>
-</li>
-</ul>
-<h2 id="Details…"><a href="#Details…" class="headerlink" title="Details…"></a>Details…</h2><p>Please visit the <a href="https://github.com/killerchip/html5-cheatsheet/tree/from-mockup-to-code" target="_blank" rel="noopener">Github Project: From Mockup to Code</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://killerchip.net/2018/05/15/2018-05-15-from-mockup-to-code/" data-id="cjs7k347r001yvqvh2si28jnw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/guide/">guide</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mockup/">mockup</a></li></ul>
 
     </footer>
   </div>
@@ -833,7 +887,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-volume/">Android volume</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular/">Angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cordova/">Cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dotin/">Dotin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github-Pages/">Github Pages</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internationalization/">Internationalization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic/">Ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ionic-DevApp/">Ionic DevApp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Localization/">Localization</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Static-Site-Generators/">Static Site Generators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Udacity/">Udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-basics/">android basics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/artificial-intelligence/">artificial intelligence</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/azure-iot/">azure iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dependency-injection/">dependency injection</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/developer-conference/">developer conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/di/">di</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directives/">directives</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/eslint/">eslint</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event-propagation/">event propagation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flow-router/">flow-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/forms/">forms</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/framework7/">framework7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grid/">grid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/guide/">guide</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/html5/">html5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/i18n/">i18n</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/immutables/">immutables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ionic/">ionic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iot/">iot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layout/">layout</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/layouts/">layouts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/menu/">menu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/meteor/">meteor</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mockup/">mockup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/moodle/">moodle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-model/">ngx-model</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate/">ngx-translate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract/">ngx-translate-extract</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ngx-translate-extract-csv/">ngx-translate-extract-csv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/observables/">observables</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/prettier/">prettier</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberry-pi/">raspberry pi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react-router/">react router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reactivex/">reactivex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redux/">redux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/responsive/">responsive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/routing/">routing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjs/">rxjs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/state-machines/">state machines</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/udacity/">udacity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/validators/">validators</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/voxxed-days-thessaloniki-2017/">voxxed days thessaloniki 2017</a></li></ul>
     </div>
   </div>
 
@@ -843,7 +897,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 15px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 15px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 15px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/android-basics/" style="font-size: 12.5px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12.5px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/flow-router/" style="font-size: 10px;">flow-router</a> <a href="/tags/forms/" style="font-size: 12.5px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 17.5px;">html5</a> <a href="/tags/i18n/" style="font-size: 15px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12.5px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12.5px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 15px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 15px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 15px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 15px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 15px;">react</a> <a href="/tags/reactivex/" style="font-size: 15px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12.5px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 15px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12.5px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12.5px;">voxxed days thessaloniki 2017</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Android-volume/" style="font-size: 10px;">Android volume</a> <a href="/tags/Angular/" style="font-size: 14px;">Angular</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Cordova/" style="font-size: 10px;">Cordova</a> <a href="/tags/Dotin/" style="font-size: 10px;">Dotin</a> <a href="/tags/Github-Pages/" style="font-size: 10px;">Github Pages</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Internationalization/" style="font-size: 14px;">Internationalization</a> <a href="/tags/Ionic/" style="font-size: 10px;">Ionic</a> <a href="/tags/Ionic-DevApp/" style="font-size: 10px;">Ionic DevApp</a> <a href="/tags/Localization/" style="font-size: 14px;">Localization</a> <a href="/tags/Static-Site-Generators/" style="font-size: 10px;">Static Site Generators</a> <a href="/tags/UML/" style="font-size: 10px;">UML</a> <a href="/tags/Udacity/" style="font-size: 10px;">Udacity</a> <a href="/tags/android/" style="font-size: 14px;">android</a> <a href="/tags/android-basics/" style="font-size: 12px;">android basics</a> <a href="/tags/angular/" style="font-size: 20px;">angular</a> <a href="/tags/artificial-intelligence/" style="font-size: 10px;">artificial intelligence</a> <a href="/tags/azure-iot/" style="font-size: 10px;">azure iot</a> <a href="/tags/bootstrap/" style="font-size: 12px;">bootstrap</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/dependency-injection/" style="font-size: 10px;">dependency injection</a> <a href="/tags/developer-conference/" style="font-size: 10px;">developer conference</a> <a href="/tags/di/" style="font-size: 10px;">di</a> <a href="/tags/directives/" style="font-size: 10px;">directives</a> <a href="/tags/eslint/" style="font-size: 10px;">eslint</a> <a href="/tags/event-propagation/" style="font-size: 10px;">event propagation</a> <a href="/tags/flow-router/" style="font-size: 10px;">flow-router</a> <a href="/tags/forms/" style="font-size: 12px;">forms</a> <a href="/tags/framework7/" style="font-size: 10px;">framework7</a> <a href="/tags/grid/" style="font-size: 10px;">grid</a> <a href="/tags/guide/" style="font-size: 10px;">guide</a> <a href="/tags/html5/" style="font-size: 18px;">html5</a> <a href="/tags/i18n/" style="font-size: 14px;">i18n</a> <a href="/tags/immutables/" style="font-size: 10px;">immutables</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/iot/" style="font-size: 10px;">iot</a> <a href="/tags/javascript/" style="font-size: 12px;">javascript</a> <a href="/tags/layout/" style="font-size: 10px;">layout</a> <a href="/tags/layouts/" style="font-size: 12px;">layouts</a> <a href="/tags/menu/" style="font-size: 10px;">menu</a> <a href="/tags/meteor/" style="font-size: 14px;">meteor</a> <a href="/tags/mockup/" style="font-size: 10px;">mockup</a> <a href="/tags/moodle/" style="font-size: 10px;">moodle</a> <a href="/tags/ngx-model/" style="font-size: 10px;">ngx-model</a> <a href="/tags/ngx-translate/" style="font-size: 14px;">ngx-translate</a> <a href="/tags/ngx-translate-extract/" style="font-size: 14px;">ngx-translate-extract</a> <a href="/tags/ngx-translate-extract-csv/" style="font-size: 14px;">ngx-translate-extract-csv</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/observables/" style="font-size: 10px;">observables</a> <a href="/tags/prettier/" style="font-size: 10px;">prettier</a> <a href="/tags/raspberry-pi/" style="font-size: 10px;">raspberry pi</a> <a href="/tags/react/" style="font-size: 16px;">react</a> <a href="/tags/react-router/" style="font-size: 10px;">react router</a> <a href="/tags/reactivex/" style="font-size: 14px;">reactivex</a> <a href="/tags/redux/" style="font-size: 10px;">redux</a> <a href="/tags/responsive/" style="font-size: 12px;">responsive</a> <a href="/tags/routing/" style="font-size: 10px;">routing</a> <a href="/tags/rxjs/" style="font-size: 14px;">rxjs</a> <a href="/tags/state-machines/" style="font-size: 10px;">state machines</a> <a href="/tags/udacity/" style="font-size: 12px;">udacity</a> <a href="/tags/validators/" style="font-size: 10px;">validators</a> <a href="/tags/voxxed-days-thessaloniki-2017/" style="font-size: 12px;">voxxed days thessaloniki 2017</a>
     </div>
   </div>
 
@@ -852,7 +906,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li></ul>
     </div>
   </div>
 
@@ -863,6 +917,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/06/11/20190611-react-router-cheatsheet/">React router cheatsheet</a>
+          </li>
         
           <li>
             <a href="/2019/02/16/20190216-meteor-role-based-routing/">MeteorJS - Role Based Routing example</a>
@@ -878,10 +936,6 @@
         
           <li>
             <a href="/2018/08/20/2018-08-20-meteor-react-eslint/">ESlint configuration on Meteor-React project</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/01/2018-07-01-react-begineer-cheatsheet/">React - A Beginner&#39;s Cheatsheet</a>
           </li>
         
       </ul>
